@@ -5,18 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Designs - Bhagya Blouses</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Reuse styles from index.html */
+        /* Global Styles */
         :root {
             --primary-pink: #ff9ec7;
             --secondary-pink: #ff6fa5;
+            --dark-pink: #e91e63;
+            --light-pink: #ffeef5;
             --gold: #d4af37;
             --light-gold: #f4e5c2;
             --cream: #fff8f3;
-            --light-pink: #ffeef5;
-            --dark-pink: #e91e63;
+            --text-dark: #333;
+            --text-light: #666;
             --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
             --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
@@ -29,16 +32,16 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #ffeef5, #fff8f3);
-            color: #333;
+            color: var(--text-dark);
             overflow-x: hidden;
             min-height: 100vh;
+            padding-bottom: 70px; /* Space for mobile nav */
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
         }
 
-        /* Include all navigation and base styles from index.html */
         /* Desktop Navigation */
         .desktop-nav {
             display: none;
@@ -105,81 +108,83 @@
             border-radius: 2px;
         }
 
-        /* Mobile Navigation */
+        /* Mobile Navigation - Fixed for Small Screens */
         .mobile-nav {
             display: flex;
             position: fixed;
             bottom: 0;
+            left: 0;
             width: 100%;
-            height: 75px;
-            background: linear-gradient(135deg, rgba(255, 158, 199, 0.95), rgba(255, 111, 165, 0.95));
-            backdrop-filter: blur(10px);
+            height: 70px;
+            background: linear-gradient(135deg, rgba(255, 158, 199, 0.85), rgba(255, 111, 165, 0.85));
+            backdrop-filter: blur(15px);
             border-top: 2px solid var(--gold);
             border-radius: 20px 20px 0 0;
             z-index: 1000;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+            padding: 0;
         }
 
         .mobile-nav .nav-items {
             display: flex;
             width: 100%;
+            height: 100%;
             justify-content: space-around;
             align-items: center;
-            padding: 0 20px;
+            padding: 5px 0;
         }
 
         .mobile-nav .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            gap: 3px;
             color: white;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 10px;
+            font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
+            padding: 5px;
+            width: 18%;
+            height: 100%;
         }
 
         .mobile-nav .nav-item i {
-            font-size: 22px;
+            font-size: 20px;
+            transition: all 0.3s ease;
         }
 
         .mobile-nav .nav-item:hover, .mobile-nav .nav-item.active {
             color: var(--gold);
         }
 
-        .mobile-nav .order-btn {
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--gold), var(--light-gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
-            animation: pulse 2s infinite;
+        .mobile-nav .nav-item:hover i, .mobile-nav .nav-item.active i {
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
         }
 
-        @keyframes pulse {
-            0% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.05); }
-            100% { transform: translateX(-50%) scale(1); }
+        .mobile-nav .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 0 0 3px 3px;
         }
 
         /* Page Header */
         .page-header {
-            padding: 120px 20px 60px;
-            background: linear-gradient(135deg, rgba(255, 238, 245, 0.9), rgba(255, 248, 243, 0.9)), url('https://picsum.photos/seed/designs/1920/400.jpg');
-            background-size: cover;
-            background-position: center;
+            padding: 100px 20px 40px;
             text-align: center;
         }
 
         .page-header h1 {
-            font-size: 48px;
+            font-size: 42px;
             margin-bottom: 15px;
             background: linear-gradient(135deg, var(--dark-pink), var(--gold));
             -webkit-background-clip: text;
@@ -188,79 +193,327 @@
 
         .page-header p {
             font-size: 18px;
-            color: #666;
+            color: var(--text-light);
         }
 
         /* Designs Section */
         .designs-section {
-            padding: 60px 20px 100px;
-            background: white;
-        }
-
-        .container {
+            padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
         }
 
-        /* Filter System */
-        .filter-container {
-            margin-bottom: 40px;
-        }
-
-        .filter-tabs {
+        /* Modern Filter Button */
+        .filter-button {
+            position: fixed;
+            top: 140px;
+            right: 30px;
             display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 10px;
-        }
-
-        .filter-tab {
-            padding: 10px 20px;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid var(--glass-border);
             border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(255, 111, 165, 0.2);
+            color: var(--dark-pink);
+            font-size: 14px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            z-index: 100;
         }
 
-        .filter-tab:hover {
-            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+        .filter-button:hover {
+            background: rgba(255, 158, 199, 0.3);
+            box-shadow: 0 8px 25px rgba(255, 111, 165, 0.4), 0 0 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .filter-button i {
+            font-size: 16px;
+        }
+
+        /* Modern Filter Panel */
+        .filter-panel {
+            position: fixed;
+            top: 200px;
+            right: 30px;
+            width: 320px;
+            max-height: 70vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 111, 165, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-panel.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .filter-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .filter-header h3 {
+            font-size: 18px;
+            color: var(--dark-pink);
+            font-weight: 600;
+        }
+
+        .filter-close {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-close:hover {
+            background: var(--secondary-pink);
             color: white;
+            transform: rotate(90deg);
+        }
+
+        .filter-content {
+            padding: 10px 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* Filter Categories */
+        .filter-category {
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-category-header {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-category-header:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-category-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-category-title i {
+            color: var(--secondary-pink);
+            font-size: 18px;
+        }
+
+        .filter-category-toggle {
+            color: var(--secondary-pink);
+            transition: transform 0.3s ease;
+        }
+
+        .filter-category.expanded .filter-category-toggle {
+            transform: rotate(180deg);
+        }
+
+        .filter-options {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .filter-category.expanded .filter-options {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .filter-option {
+            padding: 10px 15px 10px 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 6px;
+            margin: 0 10px 5px;
+        }
+
+        .filter-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .filter-option.selected {
+            background: rgba(255, 111, 165, 0.2);
+            border-left: 3px solid var(--secondary-pink);
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--secondary-pink);
+            cursor: pointer;
+        }
+
+        .filter-option label {
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            flex: 1;
+        }
+
+        /* Filter Actions - FIXED */
+        .filter-actions {
+            padding: 15px 20px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 10px;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .filter-actions button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-filters {
+            background: rgba(255, 255, 255, 0.3);
+            color: #333;
+        }
+
+        .clear-filters:hover {
+            background: rgba(255, 255, 255, 0.5);
             transform: translateY(-2px);
         }
 
-        .filter-tab.active {
+        .apply-filters {
             background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
             color: white;
+            box-shadow: 0 5px 15px rgba(255, 111, 165, 0.3);
+        }
+
+        .apply-filters:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 111, 165, 0.4);
+        }
+
+        /* Active Filters Display */
+        .active-filters {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .active-filters-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark-pink);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-all {
+            font-size: 12px;
+            color: var(--secondary-pink);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .active-filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            background: var(--light-pink);
+            border: 1px solid var(--primary-pink);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .filter-tag i {
+            cursor: pointer;
+            color: var(--secondary-pink);
         }
 
         /* Design Grid */
         .design-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 25px;
+            margin-top: 20px;
         }
 
         .design-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             position: relative;
         }
 
         .design-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
 
         .design-card .image-container {
             position: relative;
-            height: 300px;
+            height: 250px;
             overflow: hidden;
         }
 
@@ -272,7 +525,7 @@
         }
 
         .design-card:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .design-card .badge {
@@ -281,8 +534,8 @@
             right: 15px;
             background: var(--gold);
             color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
         }
@@ -292,22 +545,33 @@
         }
 
         .design-card h3 {
-            font-size: 22px;
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .design-card .price-range {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 16px;
             margin-bottom: 10px;
-            color: #333;
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 4px 10px;
+            border-radius: 15px;
         }
 
         .design-card .model-number {
-            color: #999;
+            color: var(--text-light);
             font-size: 14px;
             margin-bottom: 15px;
         }
 
         .design-card .description {
-            color: #666;
+            color: var(--text-light);
             font-size: 14px;
             margin-bottom: 20px;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .design-card .actions {
@@ -316,9 +580,9 @@
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 10px 15px;
             border: none;
-            border-radius: 50px;
+            border-radius: 25px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
@@ -332,26 +596,43 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 111, 165, 0.4);
+            box-shadow: 0 4px 12px rgba(255, 111, 165, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 111, 165, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 111, 165, 0.4);
         }
 
         .btn-secondary {
             background: linear-gradient(135deg, var(--gold), var(--light-gold));
-            color: #333;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
 
         .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
         }
 
-        /* Modal */
+        /* Cart Counter */
+        .cart-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: white;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* Product Detail Modal */
         .modal {
             display: none;
             position: fixed;
@@ -364,16 +645,13 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .modal.active {
             display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            opacity: 1;
         }
 
         .modal-content {
@@ -384,24 +662,18 @@
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            animation: slideUp 0.3s ease;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
         }
 
-        @keyframes slideUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+        .modal.active .modal-content {
+            transform: scale(1);
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             width: 40px;
             height: 40px;
             background: var(--glass-bg);
@@ -412,7 +684,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 18px;
             color: #666;
             transition: all 0.3s ease;
             z-index: 10;
@@ -421,6 +693,7 @@
         .modal-close:hover {
             background: var(--secondary-pink);
             color: white;
+            transform: rotate(90deg);
         }
 
         .modal-body {
@@ -434,6 +707,7 @@
             width: 100%;
             border-radius: 15px;
             overflow: hidden;
+            position: relative;
         }
 
         .modal-image img {
@@ -442,22 +716,48 @@
             display: block;
         }
 
+        .modal-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .modal-info h2 {
             font-size: 32px;
-            margin-bottom: 15px;
-            color: var(--dark-pink);
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--dark-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .modal-info .model-number {
-            color: #999;
+            color: var(--text-light);
             font-size: 16px;
             margin-bottom: 20px;
         }
 
+        .modal-info .price {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 8px 15px;
+            border-radius: 15px;
+        }
+
         .modal-info .description {
-            color: #666;
+            color: var(--text-light);
             line-height: 1.8;
             margin-bottom: 30px;
+            font-size: 16px;
         }
 
         .modal-actions {
@@ -465,16 +765,252 @@
             gap: 15px;
         }
 
+        .modal-actions .btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        /* Collection Reminder Popup */
+        .collection-popup {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 111, 165, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        .collection-popup.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .collection-popup-content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .collection-popup-icon {
+            font-size: 36px;
+            color: var(--secondary-pink);
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .collection-popup h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .collection-popup p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .collection-popup-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 111, 165, 0.3);
+        }
+
+        .collection-popup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 111, 165, 0.5);
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink));
+        }
+
+        .collection-popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .collection-popup-close:hover {
+            background: var(--secondary-pink);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* Advertisement Popup */
+        .ad-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .ad-popup.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .ad-popup-content {
+            position: relative;
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--gold);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .ad-popup.show .ad-popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .ad-popup-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .ad-popup-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .ad-popup h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--dark-pink), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ad-popup p {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .ad-popup-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .ad-popup-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ad-popup-btn-instagram {
+            background: linear-gradient(135deg, #f58529, #e1306c, #833ab4, #c13584, #fd1d1d, #f56040, #f77737, #fcaf45, #e1306c);
+            color: white;
+            box-shadow: 0 5px 15px rgba(223, 71, 133, 0.4);
+        }
+
+        .ad-popup-btn-instagram:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(223, 71, 133, 0.6);
+        }
+
+        .ad-popup-btn-youtube {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .ad-popup-btn-youtube:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6);
+        }
+
+        .ad-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #666;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .ad-popup-close:hover {
+            background: var(--secondary-pink);
+            color: white;
+            transform: rotate(90deg);
+        }
+
         /* Toast Notification */
         .toast {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: linear-gradient(135deg, var(--gold), var(--light-gold));
-            color: #333;
-            padding: 15px 30px;
-            border-radius: 50px;
+            color: var(--text-dark);
+            padding: 12px 25px;
+            border-radius: 25px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             opacity: 0;
             transition: all 0.3s ease;
@@ -486,6 +1022,21 @@
             opacity: 1;
         }
 
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-size: 18px;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 48px;
+            color: var(--secondary-pink);
+            margin-bottom: 15px;
+        }
+
         /* Responsive Design */
         @media (min-width: 1025px) {
             .desktop-nav {
@@ -493,6 +1044,13 @@
             }
             .mobile-nav {
                 display: none;
+            }
+            body {
+                padding-bottom: 0;
+            }
+            .collection-popup {
+                bottom: 90px;
+                right: 20px;
             }
         }
 
@@ -503,20 +1061,104 @@
             .mobile-nav {
                 display: flex;
             }
-            .page-header h1 {
-                font-size: 36px;
-            }
             .modal-body {
                 grid-template-columns: 1fr;
+            }
+            .filter-panel {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+            .collection-popup {
+                bottom: 90px;
+                left: 50%;
+                transform: translateX(-50%);
             }
         }
 
         @media (max-width: 768px) {
             .page-header h1 {
-                font-size: 28px;
+                font-size: 32px;
             }
             .design-grid {
                 grid-template-columns: 1fr;
+            }
+            .filter-button {
+                top: 120px;
+                right: 15px;
+            }
+            .filter-panel {
+                top: 180px;
+            }
+            .collection-popup {
+                width: 90%;
+                bottom: 90px;
+                left: 5%;
+                transform: none;
+            }
+            .ad-popup-content {
+                width: 95%;
+            }
+            .ad-popup-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Small Screen Fixes for Mobile Navigation */
+        @media (max-width: 425px) {
+            .mobile-nav {
+                height: 65px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 9px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .mobile-nav {
+                height: 60px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 8px;
+                gap: 2px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .mobile-nav {
+                height: 60px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 8px;
+                padding: 3px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .mobile-nav {
+                height: 55px;
+            }
+            .mobile-nav .nav-item {
+                font-size: 7px;
+                padding: 2px;
+                gap: 1px;
+            }
+            .mobile-nav .nav-item i {
+                font-size: 14px;
+            }
+            .mobile-nav .nav-item.active::before {
+                width: 20px;
+                height: 2px;
             }
         }
     </style>
@@ -531,44 +1173,46 @@
                     <i class="fas fa-home"></i> Home
                 </a>
                 <a href="designs.html" class="nav-item active">
-                    <i class="fas fa-palette"></i> Our Designs
+                    <i class="fas fa-shirt"></i> Our Designs
                 </a>
                 <a href="booking.html" class="nav-item">
-                    <i class="fas fa-calendar"></i> Book Appointment
+                    <i class="fas fa-calendar-check"></i> Book Appointment
                 </a>
                 <a href="about.html" class="nav-item">
-                    <i class="fas fa-info-circle"></i> About
+                    <i class="fas fa-circle-info"></i> About
                 </a>
                 <a href="cart.html" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i> Cart
+                    <i class="fas fa-cart-shopping"></i> Cart
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Navigation -->
+    <!-- Mobile Navigation - Fixed for Small Screens -->
     <nav class="mobile-nav">
         <div class="nav-items">
             <a href="index.html" class="nav-item">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-house"></i>
                 <span>Home</span>
             </a>
             <a href="designs.html" class="nav-item active">
-                <i class="fas fa-palette"></i>
+                <i class="fas fa-shirt"></i>
                 <span>Designs</span>
             </a>
-            <a href="cart.html" class="nav-item">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Cart</span>
+            <a href="booking.html" class="nav-item">
+                <i class="fas fa-calendar-check"></i>
+                <span>Book</span>
             </a>
             <a href="about.html" class="nav-item">
-                <i class="fas fa-info-circle"></i>
+                <i class="fas fa-circle-info"></i>
                 <span>About</span>
             </a>
+            <a href="cart.html" class="nav-item" style="position: relative;">
+                <i class="fas fa-cart-shopping"></i>
+                <span>Cart</span>
+                <div class="cart-counter" id="cartCounter">0</div>
+            </a>
         </div>
-        <a href="booking.html" class="order-btn">
-            <i class="fas fa-star" style="color: white; font-size: 30px;"></i>
-        </a>
     </nav>
 
     <!-- Page Header -->
@@ -579,90 +1223,228 @@
 
     <!-- Designs Section -->
     <section class="designs-section">
-        <div class="container">
-            <!-- Filter Categories -->
-            <div class="filter-container">
-                <div class="filter-tabs">
-                    <div class="filter-tab active" data-category="all">All Categories</div>
-                    <div class="filter-tab" data-category="bridal">Bridal</div>
-                    <div class="filter-tab" data-category="neck">Neck Designs</div>
-                    <div class="filter-tab" data-category="boat">Boat Necks</div>
-                    <div class="filter-tab" data-category="collar">Collar Coat Neck</div>
-                    <div class="filter-tab" data-category="cross">Cross Neck</div>
-                    <div class="filter-tab" data-category="double">Double Shoulder</div>
-                    <div class="filter-tab" data-category="kids">Kids Neck Designs</div>
-                    <div class="filter-tab" data-category="pot">Pot Neck</div>
-                    <div class="filter-tab" data-category="vneck">V-Neck Designs</div>
-                    <div class="filter-tab" data-category="floral">Floral Designs</div>
-                    <div class="filter-tab" data-category="flowers">Flowers</div>
-                    <div class="filter-tab" data-category="lotus">Lotus & Roses</div>
-                    <div class="filter-tab" data-category="mango">Mango Designs</div>
-                    <div class="filter-tab" data-category="leaves">Leaves & Features</div>
-                    <div class="filter-tab" data-category="animal">Animal & Bird Designs</div>
-                    <div class="filter-tab" data-category="birds">Birds</div>
-                    <div class="filter-tab" data-category="peacock">Peacock</div>
-                    <div class="filter-tab" data-category="parrot">Parrot</div>
-                    <div class="filter-tab" data-category="elephant">Elephant</div>
-                    <div class="filter-tab" data-category="butterfly">Butterfly</div>
-                    <div class="filter-tab" data-category="embroidery">Embroidery Work</div>
-                    <div class="filter-tab" data-category="3d">3D Emboss</div>
-                    <div class="filter-tab" data-category="chain">Chain Stitch</div>
-                    <div class="filter-tab" data-category="cross-stitch">Cross Stitch</div>
-                    <div class="filter-tab" data-category="kutch">Kutch Work</div>
-                    <div class="filter-tab" data-category="mirror">Mirror Designs</div>
-                    <div class="filter-tab" data-category="painting">Painting with Embroidery</div>
-                    <div class="filter-tab" data-category="creative">Creative Designs</div>
-                    <div class="filter-tab" data-category="cute">Cute Work</div>
-                    <div class="filter-tab" data-category="pattern">Pattern Designs</div>
-                    <div class="filter-tab" data-category="free">Free Designs</div>
-                    <div class="filter-tab" data-category="all-over">All Over Blouses</div>
-                    <div class="filter-tab" data-category="one-side">One-Side Designs</div>
-                    <div class="filter-tab" data-category="line">Line Designs</div>
-                    <div class="filter-tab" data-category="hand">Hand Lines</div>
-                    <div class="filter-tab" data-category="font">Different Font Blouses</div>
-                    <div class="filter-tab" data-category="circle">Circle Designs</div>
-                    <div class="filter-tab" data-category="religious">Religious Designs</div>
-                    <div class="filter-tab" data-category="gods">Gods Designs</div>
-                    <div class="filter-tab" data-category="kurti">Kurti & Dress Designs</div>
-                    <div class="filter-tab" data-category="kurtis">Kurtis</div>
-                    <div class="filter-tab" data-category="dresses">Dresses</div>
-                    <div class="filter-tab" data-category="custom">Creative & Custom Designs</div>
-                    <div class="filter-tab" data-category="jewelry">Jewelry Designs</div>
-                    <div class="filter-tab" data-category="latkans">Latkans</div>
-                    <div class="filter-tab" data-category="belts">Belts</div>
-                    <div class="filter-tab" data-category="pallu">Saree Pallu Designs</div>
-                    <div class="filter-tab" data-category="backdrop">Backdrop Designs</div>
-                    <div class="filter-tab" data-category="figures">Figures</div>
-                    <div class="filter-tab" data-category="pineapple">Pineapple</div>
-                    <div class="filter-tab" data-category="rangoli">Rangoli</div>
+        <!-- Modern Filter Button -->
+        <button class="filter-button" id="filterButton">
+            <i class="fas fa-sliders-h"></i>
+            <span>Filters</span>
+        </button>
+
+        <!-- Modern Filter Panel -->
+        <div class="filter-panel" id="filterPanel">
+            <div class="filter-header">
+                <h3>Filter Designs</h3>
+                <button class="filter-close" id="filterClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="filter-content">
+                <!-- Neck Designs Category -->
+                <div class="filter-category" data-category="neck">
+                    <div class="filter-category-header">
+                        <div class="filter-category-title">
+                            <i class="fas fa-shirt"></i>
+                            <span>Neck Designs</span>
+                        </div>
+                        <i class="fas fa-chevron-down filter-category-toggle"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option" data-value="boat-neck">
+                            <input type="checkbox" id="boat-neck" value="boat-neck">
+                            <label for="boat-neck">Boat Neck</label>
+                        </div>
+                        <div class="filter-option" data-value="deep-neck">
+                            <input type="checkbox" id="deep-neck" value="deep-neck">
+                            <label for="deep-neck">Deep Neck</label>
+                        </div>
+                        <div class="filter-option" data-value="high-neck">
+                            <input type="checkbox" id="high-neck" value="high-neck">
+                            <label for="high-neck">High Neck</label>
+                        </div>
+                        <div class="filter-option" data-value="collar-neck">
+                            <input type="checkbox" id="collar-neck" value="collar-neck">
+                            <label for="collar-neck">Collar Neck</label>
+                        </div>
+                        <div class="filter-option" data-value="square-neck">
+                            <input type="checkbox" id="square-neck" value="square-neck">
+                            <label for="square-neck">Square Neck</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Back Designs Category -->
+                <div class="filter-category" data-category="back">
+                    <div class="filter-category-header">
+                        <div class="filter-category-title">
+                            <i class="fas fa-star"></i>
+                            <span>Back Designs</span>
+                        </div>
+                        <i class="fas fa-chevron-down filter-category-toggle"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option" data-value="tie-back">
+                            <input type="checkbox" id="tie-back" value="tie-back">
+                            <label for="tie-back">Tie Back</label>
+                        </div>
+                        <div class="filter-option" data-value="button-back">
+                            <input type="checkbox" id="button-back" value="button-back">
+                            <label for="button-back">Button Back</label>
+                        </div>
+                        <div class="filter-option" data-value="knot-back">
+                            <input type="checkbox" id="knot-back" value="knot-back">
+                            <label for="knot-back">Knot Back</label>
+                        </div>
+                        <div class="filter-option" data-value="open-back">
+                            <input type="checkbox" id="open-back" value="open-back">
+                            <label for="open-back">Open Back</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sleeve Designs Category -->
+                <div class="filter-category" data-category="sleeve">
+                    <div class="filter-category-header">
+                        <div class="filter-category-title">
+                            <i class="fas fa-tshirt"></i>
+                            <span>Sleeve Designs</span>
+                        </div>
+                        <i class="fas fa-chevron-down filter-category-toggle"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option" data-value="sleeveless">
+                            <input type="checkbox" id="sleeveless" value="sleeveless">
+                            <label for="sleeveless">Sleeveless</label>
+                        </div>
+                        <div class="filter-option" data-value="half-sleeve">
+                            <input type="checkbox" id="half-sleeve" value="half-sleeve">
+                            <label for="half-sleeve">Half Sleeve</label>
+                        </div>
+                        <div class="filter-option" data-value="puff-sleeve">
+                            <input type="checkbox" id="puff-sleeve" value="puff-sleeve">
+                            <label for="puff-sleeve">Puff Sleeve</label>
+                        </div>
+                        <div class="filter-option" data-value="full-sleeve">
+                            <input type="checkbox" id="full-sleeve" value="full-sleeve">
+                            <label for="full-sleeve">Full Sleeve</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Work Type Category -->
+                <div class="filter-category" data-category="work">
+                    <div class="filter-category-header">
+                        <div class="filter-category-title">
+                            <i class="fas fa-gem"></i>
+                            <span>Work Type</span>
+                        </div>
+                        <i class="fas fa-chevron-down filter-category-toggle"></i>
+                    </div>
+                    <div class="filter-options">
+                        <div class="filter-option" data-value="simple">
+                            <input type="checkbox" id="simple" value="simple">
+                            <label for="simple">Simple</label>
+                        </div>
+                        <div class="filter-option" data-value="embroidery">
+                            <input type="checkbox" id="embroidery" value="embroidery">
+                            <label for="embroidery">Embroidery</label>
+                        </div>
+                        <div class="filter-option" data-value="bridal">
+                            <input type="checkbox" id="bridal" value="bridal">
+                            <label for="bridal">Bridal</label>
+                        </div>
+                        <div class="filter-option" data-value="party-wear">
+                            <input type="checkbox" id="party-wear" value="party-wear">
+                            <label for="party-wear">Party Wear</label>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <!-- Design Grid -->
-            <div class="design-grid" id="designGrid">
-                <!-- Designs will be dynamically loaded here -->
+            
+            <!-- Filter Actions - FIXED -->
+            <div class="filter-actions">
+                <button class="clear-filters" id="clearFilters">
+                    <i class="fas fa-times"></i> Clear All
+                </button>
+                <button class="apply-filters" id="applyFilters">
+                    <i class="fas fa-check"></i> Apply Filters
+                </button>
             </div>
+        </div>
+
+        <!-- Active Filters Display -->
+        <div class="active-filters" id="activeFilters" style="display: none;">
+            <div class="active-filters-title">
+                <span>Active Filters</span>
+                <span class="clear-all" id="clearAll">Clear All</span>
+            </div>
+            <div class="active-filter-tags" id="activeFilterTags">
+                <!-- Active filter tags will be added here dynamically -->
+            </div>
+        </div>
+
+        <!-- Design Grid -->
+        <div class="design-grid" id="designGrid">
+            <!-- Designs will be dynamically loaded here -->
         </div>
     </section>
 
-    <!-- Preview Modal -->
-    <div class="modal" id="previewModal">
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
         <div class="modal-content">
-            <button class="modal-close" onclick="closeModal()">
+            <button class="modal-close" id="modalClose">
                 <i class="fas fa-times"></i>
             </button>
             <div class="modal-body">
                 <div class="modal-image">
                     <img id="modalImage" src="" alt="Design Preview">
+                    <div class="modal-badge" id="modalBadge"></div>
                 </div>
                 <div class="modal-info">
                     <h2 id="modalTitle"></h2>
                     <p class="model-number" id="modalModel"></p>
+                    <div class="price" id="modalPrice"></div>
                     <p class="description" id="modalDescription"></p>
                     <div class="modal-actions">
-                        <button class="btn btn-primary" onclick="orderFromModal()">Order Now</button>
-                        <button class="btn btn-secondary" onclick="addToCart()">Add to Cart</button>
+                        <button class="btn btn-primary" id="modalAddToCart">Add to Cart</button>
+                        <button class="btn btn-secondary" id="modalOrderNow">Order Now</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collection Reminder Popup -->
+    <div class="collection-popup" id="collectionPopup">
+        <button class="collection-popup-close" onclick="closeCollectionPopup()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="collection-popup-content">
+            <div class="collection-popup-icon">
+                <i class="fas fa-sparkles"></i>
+            </div>
+            <h3>Need a custom blouse design?</h3>
+            <p>For custom stitching and unique designs, contact us!</p>
+            <button class="collection-popup-btn" onclick="contactUs()">Contact Us</button>
+        </div>
+    </div>
+
+    <!-- Advertisement Popup -->
+    <div class="ad-popup" id="adPopup">
+        <div class="ad-popup-content">
+            <button class="ad-popup-close" onclick="closeAdPopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <img class="ad-popup-image" src="https://picsum.photos/seed/blouse-ad/600/250.jpg" alt="Bhagya Blouses Advertisement">
+            <div class="ad-popup-body">
+                <h2>✨ Explore Our Latest Designer Blouse Collection ✨</h2>
+                <p>Discover our exclusive range of handcrafted designer blouses that blend tradition with contemporary fashion.</p>
+                <div class="ad-popup-buttons">
+                    <button class="ad-popup-btn ad-popup-btn-instagram" onclick="visitInstagram()">
+                        <i class="fab fa-instagram"></i> Visit Instagram
+                    </button>
+                    <button class="ad-popup-btn ad-popup-btn-youtube" onclick="visitYouTube()">
+                        <i class="fab fa-youtube"></i> Visit YouTube
+                    </button>
                 </div>
             </div>
         </div>
@@ -672,119 +1454,284 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // Sample design data
+        // Sample design data with price ranges
         const designs = [
             {
                 id: 1,
                 title: "Royal Bridal Blouse",
                 model: "BB-2024-001",
-                category: "bridal",
-                description: "Exquisite bridal blouse with intricate gold embroidery and traditional patterns. Perfect for your special day.",
-                image: "https://picsum.photos/seed/bridal1/400/500.jpg",
+                priceRange: "₹1200 – ₹1500",
+                neck: "boat-neck",
+                back: "tie-back",
+                sleeve: "sleeveless",
+                work: "bridal",
+                description: "Exquisite bridal blouse with intricate gold embroidery and traditional patterns. Perfect for your special day, this blouse features detailed handwork with premium threads and stones that enhance its beauty.",
+                image: "https://picsum.photos/seed/bridal1/600/700.jpg",
                 badge: "New"
             },
             {
                 id: 2,
                 title: "Peacock Design Blouse",
                 model: "BB-2024-002",
-                category: "peacock",
-                description: "Beautiful peacock motif with vibrant colors and detailed embroidery work. A perfect blend of tradition and modernity.",
-                image: "https://picsum.photos/seed/peacock1/400/500.jpg",
+                priceRange: "₹800 – ₹1000",
+                neck: "deep-neck",
+                back: "open-back",
+                sleeve: "half-sleeve",
+                work: "party-wear",
+                description: "Beautiful peacock motif with vibrant colors and detailed embroidery work. The intricate peacock design symbolizes beauty and grace, making it a perfect choice for festive occasions.",
+                image: "https://picsum.photos/seed/peacock1/600/700.jpg",
                 badge: "Trending"
             },
             {
                 id: 3,
                 title: "Floral Elegance",
                 model: "BB-2024-003",
-                category: "floral",
-                description: "Delicate floral patterns with soft pastel shades and minimal embroidery. Perfect for daytime events.",
-                image: "https://picsum.photos/seed/floral1/400/500.jpg"
+                priceRange: "₹600 – ₹800",
+                neck: "square-neck",
+                back: "button-back",
+                sleeve: "puff-sleeve",
+                work: "simple",
+                description: "Delicate floral patterns with soft pastel shades and minimal embroidery. This design brings out the feminine charm with its subtle yet elegant floral motifs.",
+                image: "https://picsum.photos/seed/floral1/600/700.jpg"
             },
             {
                 id: 4,
                 title: "Traditional Kutch Work",
                 model: "BB-2024-004",
-                category: "kutch",
-                description: "Authentic Kutch work with vibrant threads and mirror embellishments. A true representation of Indian craftsmanship.",
-                image: "https://picsum.photos/seed/kutch1/400/500.jpg",
+                priceRange: "₹1000 – ₹1200",
+                neck: "high-neck",
+                back: "knot-back",
+                sleeve: "full-sleeve",
+                work: "embroidery",
+                description: "Authentic Kutch work with vibrant threads and mirror embellishments. This traditional Gujarati art form adds a colorful and vibrant touch to your ethnic attire.",
+                image: "https://picsum.photos/seed/kutch1/600/700.jpg",
                 badge: "Exclusive"
             },
             {
                 id: 5,
                 title: "Modern Boat Neck",
                 model: "BB-2024-005",
-                category: "boat",
-                description: "Contemporary boat neck design with subtle embroidery and clean lines. Perfect for modern women.",
-                image: "https://picsum.photos/seed/boat1/400/500.jpg"
+                priceRange: "₹500 – ₹700",
+                neck: "boat-neck",
+                back: "button-back",
+                sleeve: "sleeveless",
+                work: "simple",
+                description: "Contemporary boat neck design with subtle embroidery and clean lines. This modern design is perfect for those who prefer a minimalist yet elegant look.",
+                image: "https://picsum.photos/seed/boat1/600/700.jpg"
             },
             {
                 id: 6,
                 title: "Mango Motif Special",
                 model: "BB-2024-006",
-                category: "mango",
-                description: "Traditional mango motif with golden thread work and stone embellishments. A timeless classic.",
-                image: "https://picsum.photos/seed/mango1/400/500.jpg",
+                priceRange: "₹900 – ₹1100",
+                neck: "square-neck",
+                back: "tie-back",
+                sleeve: "half-sleeve",
+                work: "bridal",
+                description: "Traditional mango motif with golden thread work and stone embellishments. The mango design is a symbol of prosperity and is a timeless classic in Indian ethnic wear.",
+                image: "https://picsum.photos/seed/mango1/600/700.jpg",
                 badge: "Bestseller"
             },
             {
                 id: 7,
                 title: "Elegant V-Neck",
                 model: "BB-2024-007",
-                category: "vneck",
-                description: "Sophisticated V-neck design with delicate lacework and subtle bead embellishments.",
-                image: "https://picsum.photos/seed/vneck1/400/500.jpg"
+                priceRange: "₹700 – ₹900",
+                neck: "deep-neck",
+                back: "open-back",
+                sleeve: "sleeveless",
+                work: "party-wear",
+                description: "Sophisticated V-neck design with delicate lacework and subtle bead embellishments. This design adds a touch of elegance and sophistication to any saree.",
+                image: "https://picsum.photos/seed/vneck1/600/700.jpg"
             },
             {
                 id: 8,
                 title: "Butterfly Dreams",
                 model: "BB-2024-008",
-                category: "butterfly",
-                description: "Delicate butterfly patterns with colorful embroidery. Perfect for spring and summer occasions.",
-                image: "https://picsum.photos/seed/butterfly1/400/500.jpg"
+                priceRange: "₹600 – ₹800",
+                neck: "square-neck",
+                back: "button-back",
+                sleeve: "puff-sleeve",
+                work: "simple",
+                description: "Delicate butterfly patterns with colorful embroidery. Perfect for spring occasions, this design symbolizes transformation and beauty with its intricate butterfly motifs.",
+                image: "https://picsum.photos/seed/butterfly1/600/700.jpg"
             },
             {
                 id: 9,
                 title: "Lotus Grace",
                 model: "BB-2024-009",
-                category: "lotus",
-                description: "Elegant lotus motifs with pearl embellishments. Symbolizes purity and beauty.",
-                image: "https://picsum.photos/seed/lotus1/400/500.jpg"
+                priceRange: "₹800 – ₹1000",
+                neck: "boat-neck",
+                back: "knot-back",
+                sleeve: "full-sleeve",
+                work: "embroidery",
+                description: "Elegant lotus motifs with pearl embellishments. Symbolizes purity and beauty, the lotus design adds a divine touch to your traditional attire.",
+                image: "https://picsum.photos/seed/lotus1/600/700.jpg"
             },
             {
                 id: 10,
                 title: "Mirror Magic",
                 model: "BB-2024-010",
-                category: "mirror",
-                description: "Stunning mirror work with traditional patterns. Reflects light beautifully and adds sparkle to your attire.",
-                image: "https://picsum.photos/seed/mirror1/400/500.jpg",
+                priceRange: "₹900 – ₹1100",
+                neck: "deep-neck",
+                back: "open-back",
+                sleeve: "half-sleeve",
+                work: "party-wear",
+                description: "Stunning mirror work with traditional patterns. Reflects light beautifully and adds a sparkling element to your outfit, making you stand out in any gathering.",
+                image: "https://picsum.photos/seed/mirror1/600/700.jpg",
                 badge: "Popular"
             },
             {
                 id: 11,
                 title: "Kids Special",
                 model: "BB-2024-011",
-                category: "kids",
-                description: "Cute and comfortable designs specially crafted for kids with soft fabrics and playful patterns.",
-                image: "https://picsum.photos/seed/kids1/400/500.jpg"
+                priceRange: "₹400 – ₹600",
+                neck: "square-neck",
+                back: "button-back",
+                sleeve: "puff-sleeve",
+                work: "simple",
+                description: "Cute and comfortable designs specially crafted for kids with soft fabrics. These blouses are designed keeping in mind the comfort and style needs of young ones.",
+                image: "https://picsum.photos/seed/kids1/600/700.jpg"
             },
             {
                 id: 12,
                 title: "3D Emboss Art",
                 model: "BB-2024-012",
-                category: "3d",
-                description: "Innovative 3D emboss work that creates stunning texture and depth. A modern twist to traditional designs.",
-                image: "https://picsum.photos/seed/3d1/400/500.jpg"
+                priceRange: "₹1000 – ₹1300",
+                neck: "high-neck",
+                back: "tie-back",
+                sleeve: "full-sleeve",
+                work: "embroidery",
+                description: "Innovative 3D emboss work that creates stunning texture and depth. This contemporary design technique adds a unique dimension to traditional blouse designs.",
+                image: "https://picsum.photos/seed/3d1/600/700.jpg"
             }
         ];
 
+        // Current active filters
+        let activeFilters = {
+            neck: [],
+            back: [],
+            sleeve: [],
+            work: []
+        };
+
+        // Popup messages for collection reminder
+        const collectionMessages = [
+            {
+                icon: "fa-sparkles",
+                title: "Need a custom blouse design?",
+                message: "For custom stitching and unique designs, contact us!"
+            },
+            {
+                icon: "fa-gem",
+                title: "Looking for more blouse collections?",
+                message: "Discover our exclusive range of designer blouses!"
+            },
+            {
+                icon: "fa-heart",
+                title: "Love our designs?",
+                message: "Get your custom blouse tailored just for you!"
+            }
+        ];
+
+        let currentMessageIndex = 0;
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentDesign = null;
+
+        // Update cart counter
+        function updateCartCounter() {
+            const counter = document.getElementById('cartCounter');
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            counter.textContent = totalItems;
+            
+            // Hide counter if cart is empty
+            if (totalItems === 0) {
+                counter.style.display = 'none';
+            } else {
+                counter.style.display = 'flex';
+            }
+        }
+
+        // Add to cart function
+        function addToCart(designId) {
+            const design = designs.find(d => d.id === designId);
+            
+            // Check if item is already in cart
+            const existingItem = cart.find(item => item.id === designId);
+            
+            if (existingItem) {
+                // Increment quantity if already in cart
+                existingItem.quantity++;
+            } else {
+                // Add new item to cart
+                cart.push({
+                    ...design,
+                    quantity: 1,
+                    price: parseInt(design.priceRange.split('–')[1].replace(/[^\d]/g, '')) // Use max price
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update counter
+            updateCartCounter();
+            
+            // Show toast
+            showToast(`${design.title} added to cart!`);
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
         // Load designs
-        function loadDesigns(category = 'all') {
+        function loadDesigns() {
             const grid = document.getElementById('designGrid');
             grid.innerHTML = '';
             
-            const filteredDesigns = category === 'all' 
-                ? designs 
-                : designs.filter(d => d.category === category);
+            // Apply filters
+            let filteredDesigns = designs;
+            
+            // Filter by neck
+            if (activeFilters.neck.length > 0) {
+                filteredDesigns = filteredDesigns.filter(d => activeFilters.neck.includes(d.neck));
+            }
+            
+            // Filter by back
+            if (activeFilters.back.length > 0) {
+                filteredDesigns = filteredDesigns.filter(d => activeFilters.back.includes(d.back));
+            }
+            
+            // Filter by sleeve
+            if (activeFilters.sleeve.length > 0) {
+                filteredDesigns = filteredDesigns.filter(d => activeFilters.sleeve.includes(d.sleeve));
+            }
+            
+            // Filter by work
+            if (activeFilters.work.length > 0) {
+                filteredDesigns = filteredDesigns.filter(d => activeFilters.work.includes(d.work));
+            }
+            
+            // If no designs match the filters, show a message
+            if (filteredDesigns.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <p>No designs match your filters. Try adjusting your selection.</p>
+                    </div>
+                `;
+                return;
+            }
             
             filteredDesigns.forEach(design => {
                 const card = document.createElement('div');
@@ -796,107 +1743,332 @@
                     </div>
                     <div class="content">
                         <h3>${design.title}</h3>
+                        <div class="price-range">${design.priceRange}</div>
                         <p class="model-number">Model: ${design.model}</p>
-                        <p class="description">${design.description}</p>
+                        <p class="description">${design.description.substring(0, 100)}...</p>
                         <div class="actions">
-                            <button class="btn btn-primary preview-btn" 
-                                    data-title="${design.title}" 
-                                    data-model="${design.model}" 
-                                    data-description="${design.description}"
-                                    data-image="${design.image}">Preview</button>
-                            <button class="btn btn-secondary order-btn" 
-                                    data-title="${design.title}" 
-                                    data-model="${design.model}">Order</button>
+                            <button class="btn btn-primary" onclick="addToCart(${design.id})">Add to Cart</button>
+                            <button class="btn btn-secondary" onclick="viewDetails(${design.id})">View Details</button>
                         </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
-            
-            // Add event listeners to new buttons
-            attachButtonListeners();
         }
 
-        // Filter tabs
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                loadDesigns(this.dataset.category);
+        // Update active filters display
+        function updateActiveFiltersDisplay() {
+            const activeFiltersContainer = document.getElementById('activeFilters');
+            const activeFilterTags = document.getElementById('activeFilterTags');
+            
+            // Check if there are any active filters
+            const hasActiveFilters = Object.values(activeFilters).some(filters => filters.length > 0);
+            
+            if (!hasActiveFilters) {
+                activeFiltersContainer.style.display = 'none';
+                return;
+            }
+            
+            activeFiltersContainer.style.display = 'block';
+            activeFilterTags.innerHTML = '';
+            
+            // Create filter tags for each active filter
+            Object.entries(activeFilters).forEach(([category, filters]) => {
+                filters.forEach(filterValue => {
+                    const tag = document.createElement('div');
+                    tag.className = 'filter-tag';
+                    
+                    // Get the label for the filter value
+                    const label = document.querySelector(`input[value="${filterValue}"] + label`).textContent;
+                    
+                    tag.innerHTML = `
+                        ${label}
+                        <i class="fas fa-times" data-category="${category}" data-value="${filterValue}"></i>
+                    `;
+                    
+                    activeFilterTags.appendChild(tag);
+                });
+            });
+            
+            // Add event listeners to remove individual filters
+            document.querySelectorAll('.filter-tag i').forEach(icon => {
+                icon.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    const value = this.dataset.value;
+                    
+                    // Remove filter from active filters
+                    activeFilters[category] = activeFilters[category].filter(f => f !== value);
+                    
+                    // Uncheck the checkbox
+                    document.querySelector(`input[value="${value}"]`).checked = false;
+                    
+                    // Update display and reload designs
+                    updateActiveFiltersDisplay();
+                    loadDesigns();
+                });
+            });
+        }
+
+        // Filter button click event
+        document.getElementById('filterButton').addEventListener('click', function() {
+            const filterPanel = document.getElementById('filterPanel');
+            filterPanel.classList.toggle('active');
+        });
+
+        // Filter close button click event
+        document.getElementById('filterClose').addEventListener('click', function() {
+            const filterPanel = document.getElementById('filterPanel');
+            filterPanel.classList.remove('active');
+        });
+
+        // Category accordion functionality
+        document.querySelectorAll('.filter-category-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const category = this.closest('.filter-category');
+                category.classList.toggle('expanded');
             });
         });
 
-        // Button event listeners
-        function attachButtonListeners() {
-            // Preview buttons
-            document.querySelectorAll('.preview-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const modal = document.getElementById('previewModal');
-                    document.getElementById('modalImage').src = this.dataset.image;
-                    document.getElementById('modalTitle').textContent = this.dataset.title;
-                    document.getElementById('modalModel').textContent = 'Model: ' + this.dataset.model;
-                    document.getElementById('modalDescription').textContent = this.dataset.description;
-                    
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
+        // Filter option selection
+        document.querySelectorAll('.filter-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                checkbox.checked = !checkbox.checked;
+                
+                if (checkbox.checked) {
+                    this.classList.add('selected');
+                } else {
+                    this.classList.remove('selected');
+                }
+            });
+        });
+
+        // Clear filters button
+        document.getElementById('clearFilters').addEventListener('click', function() {
+            // Uncheck all checkboxes
+            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
             });
             
-            // Order buttons
-            document.querySelectorAll('.order-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const product = {
-                        title: this.dataset.title,
-                        model: this.dataset.model
-                    };
-                    localStorage.setItem('selectedProduct', JSON.stringify(product));
-                    window.location.href = 'cart.html';
-                });
+            // Remove selected class from all options
+            document.querySelectorAll('.filter-option').forEach(option => {
+                option.classList.remove('selected');
             });
+            
+            // Reset active filters
+            activeFilters = {
+                neck: [],
+                back: [],
+                sleeve: [],
+                work: []
+            };
+            
+            // Update display and reload designs
+            updateActiveFiltersDisplay();
+            loadDesigns();
+            
+            showToast('All filters cleared');
+        });
+
+        // Clear all active filters
+        document.getElementById('clearAll').addEventListener('click', function() {
+            document.getElementById('clearFilters').click();
+        });
+
+        // Apply filters button
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            // Reset active filters
+            activeFilters = {
+                neck: [],
+                back: [],
+                sleeve: [],
+                work: []
+            };
+            
+            // Collect all checked filters
+            document.querySelectorAll('.filter-option input:checked').forEach(checkbox => {
+                const value = checkbox.value;
+                
+                // Determine the category based on the input's parent category
+                const category = checkbox.closest('.filter-category').dataset.category;
+                
+                if (activeFilters[category]) {
+                    activeFilters[category].push(value);
+                }
+            });
+            
+            // Reload designs with new filters
+            loadDesigns();
+            
+            // Update active filters display
+            updateActiveFiltersDisplay();
+            
+            // Close filter panel
+            document.getElementById('filterPanel').classList.remove('active');
+            
+            // Show toast notification
+            showToast('Filters applied successfully!');
+        });
+
+        // View design details in modal
+        function viewDetails(designId) {
+            currentDesign = designs.find(d => d.id === designId);
+            
+            if (currentDesign) {
+                // Populate modal with design details
+                document.getElementById('modalImage').src = currentDesign.image;
+                document.getElementById('modalTitle').textContent = currentDesign.title;
+                document.getElementById('modalModel').textContent = 'Model: ' + currentDesign.model;
+                document.getElementById('modalPrice').textContent = currentDesign.priceRange;
+                document.getElementById('modalDescription').textContent = currentDesign.description;
+                
+                // Show badge if exists
+                const badgeElement = document.getElementById('modalBadge');
+                if (currentDesign.badge) {
+                    badgeElement.textContent = currentDesign.badge;
+                    badgeElement.style.display = 'block';
+                } else {
+                    badgeElement.style.display = 'none';
+                }
+                
+                // Show modal
+                const modal = document.getElementById('productModal');
+                modal.classList.add('active');
+                
+                // Prevent body scroll when modal is open
+                document.body.style.overflow = 'hidden';
+            }
         }
 
-        // Modal functions
+        // Close modal
         function closeModal() {
-            document.getElementById('previewModal').classList.remove('active');
+            const modal = document.getElementById('productModal');
+            modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
 
-        function orderFromModal() {
-            closeModal();
-            window.location.href = 'cart.html';
+        // Order now function
+        function orderNow() {
+            if (currentDesign) {
+                // Add to cart first
+                addToCart(currentDesign.id);
+                
+                // Close modal
+                closeModal();
+                
+                // Navigate to cart page
+                window.location.href = 'cart.html';
+            }
         }
 
-        function addToCart() {
-            showToast('Product added to cart!');
-        }
-
-        // Toast notification
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
+        // Collection Popup Functions
+        function showCollectionPopup() {
+            const popup = document.getElementById('collectionPopup');
+            const message = collectionMessages[currentMessageIndex];
             
+            // Update popup content
+            popup.querySelector('.collection-popup-icon i').className = `fas ${message.icon}`;
+            popup.querySelector('h3').textContent = message.title;
+            popup.querySelector('p').textContent = message.message;
+            
+            // Show popup
+            popup.classList.add('show');
+            
+            // Increment message index for next time
+            currentMessageIndex = (currentMessageIndex + 1) % collectionMessages.length;
+            
+            // Auto hide after 10 seconds
             setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
+                closeCollectionPopup();
+            }, 10000);
         }
 
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        function closeCollectionPopup() {
+            const popup = document.getElementById('collectionPopup');
+            popup.classList.remove('show');
+        }
 
-        // Close modal on background click
-        document.getElementById('previewModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+        function contactUs() {
+            closeCollectionPopup();
+            window.open('https://wa.me/917337281880?text=Hi%20Bhagya%20Blouses,%20I%20would%20like%20to%20inquire%20about%20your%20custom%20blouse%20designs', '_blank');
+        }
 
-        // Initial load
-        loadDesigns();
+        // Advertisement Popup Functions
+        function showAdPopup() {
+            const popup = document.getElementById('adPopup');
+            popup.classList.add('show');
+            
+            // Auto hide after 15 seconds
+            setTimeout(() => {
+                closeAdPopup();
+            }, 15000);
+        }
+
+        function closeAdPopup() {
+            const popup = document.getElementById('adPopup');
+            popup.classList.remove('show');
+        }
+
+        function visitInstagram() {
+            closeAdPopup();
+            window.open('https://www.instagram.com/bhagyablouses/?hl=en', '_blank');
+        }
+
+        function visitYouTube() {
+            closeAdPopup();
+            window.open('https://www.youtube.com/@BhagyaBlouses', '_blank');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load designs
+            loadDesigns();
+            
+            // Update cart counter
+            updateCartCounter();
+            
+            // Setup modal event listeners
+            document.getElementById('modalClose').addEventListener('click', closeModal);
+            
+            // Add to cart button in modal
+            document.getElementById('modalAddToCart').addEventListener('click', function() {
+                if (currentDesign) {
+                    addToCart(currentDesign.id);
+                }
+            });
+            
+            // Order now button in modal
+            document.getElementById('modalOrderNow').addEventListener('click', orderNow);
+            
+            // Close modal when clicking outside
+            document.getElementById('productModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+            
+            // Close filter panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const filterPanel = document.getElementById('filterPanel');
+                const filterButton = document.getElementById('filterButton');
+                
+                if (!filterPanel.contains(e.target) && e.target !== filterButton && !filterButton.contains(e.target)) {
+                    filterPanel.classList.remove('active');
+                }
+            });
+            
+            // Set up collection popup timer (every 60 seconds)
+            setInterval(showCollectionPopup, 60000);
+            
+            // Show first collection popup after 10 seconds
+            setTimeout(showCollectionPopup, 10000);
+            
+            // Set up advertisement popup timer (every 3-4 minutes)
+            setInterval(showAdPopup, 200000); // 3 minutes 20 seconds
+            
+            // Show first advertisement popup after 30 seconds
+            setTimeout(showAdPopup, 30000);
+        });
     </script>
 </body>
 </html>
