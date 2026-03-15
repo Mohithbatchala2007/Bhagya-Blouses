@@ -36,6 +36,33 @@
             overflow-x: hidden;
             min-height: 100vh;
             padding-bottom: 70px; /* Space for mobile nav */
+            position: relative;
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+            25% { transform: translateY(-20px) translateX(10px) scale(1.1); opacity: 0.5; }
+            50% { transform: translateY(10px) translateX(-10px) scale(0.9); opacity: 0.3; }
+            75% { transform: translateY(-10px) translateX(20px) scale(1.05); opacity: 0.4; }
         }
 
         h1, h2, h3, h4 {
@@ -181,6 +208,8 @@
         .page-header {
             padding: 100px 20px 40px;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         .page-header h1 {
@@ -189,6 +218,12 @@
             background: linear-gradient(135deg, var(--dark-pink), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .page-header p {
@@ -196,19 +231,67 @@
             color: var(--text-light);
         }
 
-        /* Designs Section */
-        .designs-section {
+        /* Modern Filter Box */
+        .filter-container {
             padding: 20px;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
+            z-index: 1;
         }
 
-        /* Modern Filter Button */
-        .filter-button {
-            position: fixed;
-            top: 140px;
-            right: 30px;
+        .filter-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(255, 111, 165, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            z-index: -1;
+        }
+
+        .filter-title {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--dark-pink);
+            position: relative;
+        }
+
+        .filter-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--gold));
+            border-radius: 3px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .filter-btn {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -217,276 +300,82 @@
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: 50px;
-            box-shadow: 0 8px 20px rgba(255, 111, 165, 0.2);
             color: var(--dark-pink);
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 100;
-        }
-
-        .filter-button:hover {
-            background: rgba(255, 158, 199, 0.3);
-            box-shadow: 0 8px 25px rgba(255, 111, 165, 0.4), 0 0 15px rgba(212, 175, 55, 0.3);
-            transform: translateY(-3px) scale(1.05);
-        }
-
-        .filter-button i {
-            font-size: 16px;
-        }
-
-        /* Modern Filter Panel */
-        .filter-panel {
-            position: fixed;
-            top: 200px;
-            right: 30px;
-            width: 320px;
-            max-height: 70vh;
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(255, 111, 165, 0.3), 0 0 20px rgba(212, 175, 55, 0.2);
-            z-index: 99;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-20px) scale(0.95);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(255, 111, 165, 0.15);
+            position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
 
-        .filter-panel.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-
-        .filter-header {
-            padding: 20px;
-            border-bottom: 1px solid var(--glass-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .filter-header h3 {
-            font-size: 18px;
-            color: var(--dark-pink);
-            font-weight: 600;
-        }
-
-        .filter-close {
-            width: 30px;
-            height: 30px;
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.5);
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        .filter-close:hover {
-            background: var(--secondary-pink);
-            color: white;
-            transform: rotate(90deg);
-        }
-
-        .filter-content {
-            padding: 10px 20px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        /* Filter Categories */
-        .filter-category {
-            margin-bottom: 15px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .filter-category-header {
-            padding: 12px 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-category-header:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .filter-category-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-        }
-
-        .filter-category-title i {
-            color: var(--secondary-pink);
+        .filter-btn i {
             font-size: 18px;
-        }
-
-        .filter-category-toggle {
-            color: var(--secondary-pink);
             transition: transform 0.3s ease;
         }
 
-        .filter-category.expanded .filter-category-toggle {
-            transform: rotate(180deg);
-        }
-
-        .filter-options {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .filter-category.expanded .filter-options {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .filter-option {
-            padding: 10px 15px 10px 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-radius: 6px;
-            margin: 0 10px 5px;
-        }
-
-        .filter-option:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .filter-option.selected {
-            background: rgba(255, 111, 165, 0.2);
-            border-left: 3px solid var(--secondary-pink);
-        }
-
-        .filter-option input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--secondary-pink);
-            cursor: pointer;
-        }
-
-        .filter-option label {
-            cursor: pointer;
-            font-size: 14px;
-            color: #333;
-            flex: 1;
-        }
-
-        /* Filter Actions - FIXED */
-        .filter-actions {
-            padding: 15px 20px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            gap: 10px;
-            flex-shrink: 0;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .filter-actions button {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .clear-filters {
-            background: rgba(255, 255, 255, 0.3);
-            color: #333;
-        }
-
-        .clear-filters:hover {
-            background: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .apply-filters {
-            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+        .filter-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 111, 165, 0.3), 0 0 15px rgba(212, 175, 55, 0.3);
+            background: rgba(255, 158, 199, 0.4);
+            border-color: var(--gold);
             color: white;
-            box-shadow: 0 5px 15px rgba(255, 111, 165, 0.3);
         }
 
-        .apply-filters:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 111, 165, 0.4);
+        .filter-btn:hover i {
+            transform: scale(1.2);
+            animation: bounce 0.5s ease;
         }
 
-        /* Active Filters Display */
-        .active-filters {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        @keyframes bounce {
+            0%, 100% { transform: scale(1.2); }
+            50% { transform: scale(1.4); }
         }
 
-        .active-filters-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--dark-pink);
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+            border-color: var(--gold);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 111, 165, 0.4), 0 0 20px rgba(212, 175, 55, 0.3);
+            transform: scale(1.05);
         }
 
-        .clear-all {
-            font-size: 12px;
-            color: var(--secondary-pink);
-            cursor: pointer;
-            text-decoration: underline;
+        .filter-btn.active::before {
+            width: 300px;
+            height: 300px;
         }
 
-        .active-filter-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+        .filter-btn.active i {
+            animation: pulse 1.5s infinite;
         }
 
-        .filter-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 12px;
-            background: var(--light-pink);
-            border: 1px solid var(--primary-pink);
-            border-radius: 20px;
-            font-size: 12px;
-            color: #333;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
-        .filter-tag i {
-            cursor: pointer;
-            color: var(--secondary-pink);
+        /* Designs Section */
+        .designs-section {
+            padding: 0 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         /* Design Grid */
@@ -502,12 +391,14 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            transform: scale(1);
+            opacity: 1;
         }
 
         .design-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
         }
 
@@ -538,6 +429,7 @@
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .design-card .content {
@@ -548,17 +440,6 @@
             font-size: 20px;
             margin-bottom: 8px;
             color: var(--text-dark);
-        }
-
-        .design-card .price-range {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 16px;
-            margin-bottom: 10px;
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 4px 10px;
-            border-radius: 15px;
         }
 
         .design-card .model-number {
@@ -591,6 +472,26 @@
             display: inline-block;
             flex: 1;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary {
@@ -740,17 +641,6 @@
             color: var(--text-light);
             font-size: 16px;
             margin-bottom: 20px;
-        }
-
-        .modal-info .price {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 20px;
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 8px 15px;
-            border-radius: 15px;
         }
 
         .modal-info .description {
@@ -1064,11 +954,6 @@
             .modal-body {
                 grid-template-columns: 1fr;
             }
-            .filter-panel {
-                width: 90%;
-                right: 5%;
-                left: 5%;
-            }
             .collection-popup {
                 bottom: 90px;
                 left: 50%;
@@ -1083,12 +968,15 @@
             .design-grid {
                 grid-template-columns: 1fr;
             }
-            .filter-button {
-                top: 120px;
-                right: 15px;
+            .filter-buttons {
+                gap: 10px;
             }
-            .filter-panel {
-                top: 180px;
+            .filter-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+            .filter-btn i {
+                font-size: 16px;
             }
             .collection-popup {
                 width: 90%;
@@ -1164,6 +1052,9 @@
     </style>
 </head>
 <body>
+    <!-- Floating Particles Background -->
+    <div class="particles" id="particles"></div>
+
     <!-- Desktop Navigation -->
     <nav class="desktop-nav">
         <div class="container">
@@ -1221,167 +1112,69 @@
         <p>Explore our vast collection of designer blouses crafted with precision and love</p>
     </header>
 
+    <!-- Modern Filter Box -->
+    <section class="filter-container">
+        <div class="filter-box">
+            <h3 class="filter-title">Filter by Design Type</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn" data-category="bridal">
+                    <i class="fas fa-crown"></i>
+                    <span>Bridal</span>
+                </button>
+                <button class="filter-btn" data-category="cut-work">
+                    <i class="fas fa-cut"></i>
+                    <span>Cut Work</span>
+                </button>
+                <button class="filter-btn" data-category="net-design">
+                    <i class="fas fa-spider-web"></i>
+                    <span>Net Design</span>
+                </button>
+                <button class="filter-btn" data-category="floral-design">
+                    <i class="fas fa-fan"></i>
+                    <span>Floral Design</span>
+                </button>
+                <button class="filter-btn" data-category="simple-design">
+                    <i class="fas fa-circle"></i>
+                    <span>Simple Design</span>
+                </button>
+                <button class="filter-btn" data-category="mirror-design">
+                    <i class="fas fa-gem"></i>
+                    <span>Mirror Design</span>
+                </button>
+                <button class="filter-btn" data-category="pot-neck-design">
+                    <i class="fas fa-vase"></i>
+                    <span>Pot Neck Design</span>
+                </button>
+                <button class="filter-btn" data-category="all-over-hand-design">
+                    <i class="fas fa-hand-sparkles"></i>
+                    <span>All Over Hand Design</span>
+                </button>
+                <button class="filter-btn" data-category="all-over-design">
+                    <i class="fas fa-th"></i>
+                    <span>All Over Design</span>
+                </button>
+                <button class="filter-btn" data-category="boat-neck-design">
+                    <i class="fas fa-ship"></i>
+                    <span>Boat Neck Design</span>
+                </button>
+                <button class="filter-btn" data-category="kids-design">
+                    <i class="fas fa-child"></i>
+                    <span>Kids Design</span>
+                </button>
+                <button class="filter-btn" data-category="rangoli-design">
+                    <i class="fas fa-palette"></i>
+                    <span>Rangoli Design</span>
+                </button>
+                <button class="filter-btn active" data-category="all">
+                    <i class="fas fa-border-all"></i>
+                    <span>All Designs</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <!-- Designs Section -->
     <section class="designs-section">
-        <!-- Modern Filter Button -->
-        <button class="filter-button" id="filterButton">
-            <i class="fas fa-sliders-h"></i>
-            <span>Filters</span>
-        </button>
-
-        <!-- Modern Filter Panel -->
-        <div class="filter-panel" id="filterPanel">
-            <div class="filter-header">
-                <h3>Filter Designs</h3>
-                <button class="filter-close" id="filterClose">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div class="filter-content">
-                <!-- Neck Designs Category -->
-                <div class="filter-category" data-category="neck">
-                    <div class="filter-category-header">
-                        <div class="filter-category-title">
-                            <i class="fas fa-shirt"></i>
-                            <span>Neck Designs</span>
-                        </div>
-                        <i class="fas fa-chevron-down filter-category-toggle"></i>
-                    </div>
-                    <div class="filter-options">
-                        <div class="filter-option" data-value="boat-neck">
-                            <input type="checkbox" id="boat-neck" value="boat-neck">
-                            <label for="boat-neck">Boat Neck</label>
-                        </div>
-                        <div class="filter-option" data-value="deep-neck">
-                            <input type="checkbox" id="deep-neck" value="deep-neck">
-                            <label for="deep-neck">Deep Neck</label>
-                        </div>
-                        <div class="filter-option" data-value="high-neck">
-                            <input type="checkbox" id="high-neck" value="high-neck">
-                            <label for="high-neck">High Neck</label>
-                        </div>
-                        <div class="filter-option" data-value="collar-neck">
-                            <input type="checkbox" id="collar-neck" value="collar-neck">
-                            <label for="collar-neck">Collar Neck</label>
-                        </div>
-                        <div class="filter-option" data-value="square-neck">
-                            <input type="checkbox" id="square-neck" value="square-neck">
-                            <label for="square-neck">Square Neck</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Back Designs Category -->
-                <div class="filter-category" data-category="back">
-                    <div class="filter-category-header">
-                        <div class="filter-category-title">
-                            <i class="fas fa-star"></i>
-                            <span>Back Designs</span>
-                        </div>
-                        <i class="fas fa-chevron-down filter-category-toggle"></i>
-                    </div>
-                    <div class="filter-options">
-                        <div class="filter-option" data-value="tie-back">
-                            <input type="checkbox" id="tie-back" value="tie-back">
-                            <label for="tie-back">Tie Back</label>
-                        </div>
-                        <div class="filter-option" data-value="button-back">
-                            <input type="checkbox" id="button-back" value="button-back">
-                            <label for="button-back">Button Back</label>
-                        </div>
-                        <div class="filter-option" data-value="knot-back">
-                            <input type="checkbox" id="knot-back" value="knot-back">
-                            <label for="knot-back">Knot Back</label>
-                        </div>
-                        <div class="filter-option" data-value="open-back">
-                            <input type="checkbox" id="open-back" value="open-back">
-                            <label for="open-back">Open Back</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Sleeve Designs Category -->
-                <div class="filter-category" data-category="sleeve">
-                    <div class="filter-category-header">
-                        <div class="filter-category-title">
-                            <i class="fas fa-tshirt"></i>
-                            <span>Sleeve Designs</span>
-                        </div>
-                        <i class="fas fa-chevron-down filter-category-toggle"></i>
-                    </div>
-                    <div class="filter-options">
-                        <div class="filter-option" data-value="sleeveless">
-                            <input type="checkbox" id="sleeveless" value="sleeveless">
-                            <label for="sleeveless">Sleeveless</label>
-                        </div>
-                        <div class="filter-option" data-value="half-sleeve">
-                            <input type="checkbox" id="half-sleeve" value="half-sleeve">
-                            <label for="half-sleeve">Half Sleeve</label>
-                        </div>
-                        <div class="filter-option" data-value="puff-sleeve">
-                            <input type="checkbox" id="puff-sleeve" value="puff-sleeve">
-                            <label for="puff-sleeve">Puff Sleeve</label>
-                        </div>
-                        <div class="filter-option" data-value="full-sleeve">
-                            <input type="checkbox" id="full-sleeve" value="full-sleeve">
-                            <label for="full-sleeve">Full Sleeve</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Work Type Category -->
-                <div class="filter-category" data-category="work">
-                    <div class="filter-category-header">
-                        <div class="filter-category-title">
-                            <i class="fas fa-gem"></i>
-                            <span>Work Type</span>
-                        </div>
-                        <i class="fas fa-chevron-down filter-category-toggle"></i>
-                    </div>
-                    <div class="filter-options">
-                        <div class="filter-option" data-value="simple">
-                            <input type="checkbox" id="simple" value="simple">
-                            <label for="simple">Simple</label>
-                        </div>
-                        <div class="filter-option" data-value="embroidery">
-                            <input type="checkbox" id="embroidery" value="embroidery">
-                            <label for="embroidery">Embroidery</label>
-                        </div>
-                        <div class="filter-option" data-value="bridal">
-                            <input type="checkbox" id="bridal" value="bridal">
-                            <label for="bridal">Bridal</label>
-                        </div>
-                        <div class="filter-option" data-value="party-wear">
-                            <input type="checkbox" id="party-wear" value="party-wear">
-                            <label for="party-wear">Party Wear</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Filter Actions - FIXED -->
-            <div class="filter-actions">
-                <button class="clear-filters" id="clearFilters">
-                    <i class="fas fa-times"></i> Clear All
-                </button>
-                <button class="apply-filters" id="applyFilters">
-                    <i class="fas fa-check"></i> Apply Filters
-                </button>
-            </div>
-        </div>
-
-        <!-- Active Filters Display -->
-        <div class="active-filters" id="activeFilters" style="display: none;">
-            <div class="active-filters-title">
-                <span>Active Filters</span>
-                <span class="clear-all" id="clearAll">Clear All</span>
-            </div>
-            <div class="active-filter-tags" id="activeFilterTags">
-                <!-- Active filter tags will be added here dynamically -->
-            </div>
-        </div>
-
         <!-- Design Grid -->
         <div class="design-grid" id="designGrid">
             <!-- Designs will be dynamically loaded here -->
@@ -1402,7 +1195,6 @@
                 <div class="modal-info">
                     <h2 id="modalTitle"></h2>
                     <p class="model-number" id="modalModel"></p>
-                    <div class="price" id="modalPrice"></div>
                     <p class="description" id="modalDescription"></p>
                     <div class="modal-actions">
                         <button class="btn btn-primary" id="modalAddToCart">Add to Cart</button>
@@ -1454,166 +1246,333 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // Sample design data with price ranges
+        // Sample design data with updated image links
         const designs = [
+            // Bridal Designs
             {
                 id: 1,
                 title: "Royal Bridal Blouse",
                 model: "BB-2024-001",
-                priceRange: "₹1200 – ₹1500",
-                neck: "boat-neck",
-                back: "tie-back",
-                sleeve: "sleeveless",
-                work: "bridal",
+                category: "bridal",
                 description: "Exquisite bridal blouse with intricate gold embroidery and traditional patterns. Perfect for your special day, this blouse features detailed handwork with premium threads and stones that enhance its beauty.",
-                image: "https://picsum.photos/seed/bridal1/600/700.jpg",
+                image: "https://i.postimg.cc/4xNk3K9L/Bridal-1.jpg",
                 badge: "New"
             },
             {
                 id: 2,
-                title: "Peacock Design Blouse",
+                title: "Luxury Bridal Design",
                 model: "BB-2024-002",
-                priceRange: "₹800 – ₹1000",
-                neck: "deep-neck",
-                back: "open-back",
-                sleeve: "half-sleeve",
-                work: "party-wear",
-                description: "Beautiful peacock motif with vibrant colors and detailed embroidery work. The intricate peacock design symbolizes beauty and grace, making it a perfect choice for festive occasions.",
-                image: "https://picsum.photos/seed/peacock1/600/700.jpg",
-                badge: "Trending"
+                category: "bridal",
+                description: "Stunning bridal blouse with detailed embroidery and traditional patterns. The exquisite workmanship and premium materials make this a perfect choice for brides who want to make a statement.",
+                image: "https://i.postimg.cc/ZYgTx1CK/Bridal.jpg",
+                badge: "Premium"
             },
             {
                 id: 3,
-                title: "Floral Elegance",
+                title: "Elegant Bridal Collection",
                 model: "BB-2024-003",
-                priceRange: "₹600 – ₹800",
-                neck: "square-neck",
-                back: "button-back",
-                sleeve: "puff-sleeve",
-                work: "simple",
-                description: "Delicate floral patterns with soft pastel shades and minimal embroidery. This design brings out the feminine charm with its subtle yet elegant floral motifs.",
-                image: "https://picsum.photos/seed/floral1/600/700.jpg"
+                category: "bridal",
+                description: "Luxurious bridal design with intricate thread work and stone embellishments. This sophisticated design showcases the finest craftsmanship with attention to every detail.",
+                image: "https://i.postimg.cc/fyZqgF7j/Bridal-2.jpg",
+                badge: "Bestseller"
             },
             {
                 id: 4,
-                title: "Traditional Kutch Work",
+                title: "Bridal Masterpiece",
                 model: "BB-2024-004",
-                priceRange: "₹1000 – ₹1200",
-                neck: "high-neck",
-                back: "knot-back",
-                sleeve: "full-sleeve",
-                work: "embroidery",
-                description: "Authentic Kutch work with vibrant threads and mirror embellishments. This traditional Gujarati art form adds a colorful and vibrant touch to your ethnic attire.",
-                image: "https://picsum.photos/seed/kutch1/600/700.jpg",
+                category: "bridal",
+                description: "Artistic bridal design featuring traditional motifs with precise craftsmanship. The intricate patterns create a stunning visual effect that's both modern and traditional.",
+                image: "https://i.postimg.cc/5tfvNcmS/Bridal-design.jpg",
                 badge: "Exclusive"
             },
             {
                 id: 5,
-                title: "Modern Boat Neck",
+                title: "Bridal Elegance",
                 model: "BB-2024-005",
-                priceRange: "₹500 – ₹700",
-                neck: "boat-neck",
-                back: "button-back",
-                sleeve: "sleeveless",
-                work: "simple",
-                description: "Contemporary boat neck design with subtle embroidery and clean lines. This modern design is perfect for those who prefer a minimalist yet elegant look.",
-                image: "https://picsum.photos/seed/boat1/600/700.jpg"
+                category: "bridal",
+                description: "Sophisticated bridal design with detailed embroidery that brings out the beauty of traditional craftsmanship. Perfect for the modern bride who values tradition.",
+                image: "https://i.postimg.cc/4NwcW4k2/Bridal-design-02.jpg"
             },
             {
                 id: 6,
-                title: "Mango Motif Special",
+                title: "Bridal Splendor",
                 model: "BB-2024-006",
-                priceRange: "₹900 – ₹1100",
-                neck: "square-neck",
-                back: "tie-back",
-                sleeve: "half-sleeve",
-                work: "bridal",
-                description: "Traditional mango motif with golden thread work and stone embellishments. The mango design is a symbol of prosperity and is a timeless classic in Indian ethnic wear.",
-                image: "https://picsum.photos/seed/mango1/600/700.jpg",
-                badge: "Bestseller"
+                category: "bridal",
+                description: "Magnificent bridal design with intricate patterns and premium embellishments. This design is perfect for brides who want to make a grand statement on their special day.",
+                image: "https://i.postimg.cc/Ss0YnJCc/Bridal-design-01.jpg",
+                badge: "Trending"
             },
+            
+            // Cut Work Designs
             {
                 id: 7,
-                title: "Elegant V-Neck",
+                title: "Elegant Cut Work",
                 model: "BB-2024-007",
-                priceRange: "₹700 – ₹900",
-                neck: "deep-neck",
-                back: "open-back",
-                sleeve: "sleeveless",
-                work: "party-wear",
-                description: "Sophisticated V-neck design with delicate lacework and subtle bead embellishments. This design adds a touch of elegance and sophistication to any saree.",
-                image: "https://picsum.photos/seed/vneck1/600/700.jpg"
-            },
-            {
-                id: 8,
-                title: "Butterfly Dreams",
-                model: "BB-2024-008",
-                priceRange: "₹600 – ₹800",
-                neck: "square-neck",
-                back: "button-back",
-                sleeve: "puff-sleeve",
-                work: "simple",
-                description: "Delicate butterfly patterns with colorful embroidery. Perfect for spring occasions, this design symbolizes transformation and beauty with its intricate butterfly motifs.",
-                image: "https://picsum.photos/seed/butterfly1/600/700.jpg"
-            },
-            {
-                id: 9,
-                title: "Lotus Grace",
-                model: "BB-2024-009",
-                priceRange: "₹800 – ₹1000",
-                neck: "boat-neck",
-                back: "knot-back",
-                sleeve: "full-sleeve",
-                work: "embroidery",
-                description: "Elegant lotus motifs with pearl embellishments. Symbolizes purity and beauty, the lotus design adds a divine touch to your traditional attire.",
-                image: "https://picsum.photos/seed/lotus1/600/700.jpg"
-            },
-            {
-                id: 10,
-                title: "Mirror Magic",
-                model: "BB-2024-010",
-                priceRange: "₹900 – ₹1100",
-                neck: "deep-neck",
-                back: "open-back",
-                sleeve: "half-sleeve",
-                work: "party-wear",
-                description: "Stunning mirror work with traditional patterns. Reflects light beautifully and adds a sparkling element to your outfit, making you stand out in any gathering.",
-                image: "https://picsum.photos/seed/mirror1/600/700.jpg",
+                category: "cut-work",
+                description: "Elegant cut work design with intricate patterns that create a delicate, lace-like appearance. This sophisticated style adds a touch of elegance to any traditional outfit.",
+                image: "https://i.postimg.cc/YSWX2kbv/Cut-work.jpg",
                 badge: "Popular"
             },
             {
-                id: 11,
-                title: "Kids Special",
-                model: "BB-2024-011",
-                priceRange: "₹400 – ₹600",
-                neck: "square-neck",
-                back: "button-back",
-                sleeve: "puff-sleeve",
-                work: "simple",
-                description: "Cute and comfortable designs specially crafted for kids with soft fabrics. These blouses are designed keeping in mind the comfort and style needs of young ones.",
-                image: "https://picsum.photos/seed/kids1/600/700.jpg"
+                id: 8,
+                title: "Artistic Cut Work",
+                model: "BB-2024-008",
+                category: "cut-work",
+                description: "Beautiful cut work design featuring traditional motifs with precise craftsmanship. The intricate patterns create a stunning visual effect that's both modern and traditional.",
+                image: "https://i.postimg.cc/prqCcdLr/Cut-work-1.jpg"
             },
             {
+                id: 9,
+                title: "Contemporary Cut Work",
+                model: "BB-2024-009",
+                category: "cut-work",
+                description: "Artistic cut work design with detailed patterns that showcase exceptional craftsmanship. This unique style adds a contemporary touch to traditional blouse designs.",
+                image: "https://i.postimg.cc/289T43th/Cut-work-2.jpg",
+                badge: "New"
+            },
+            {
+                id: 10,
+                title: "Cut Work Excellence",
+                model: "BB-2024-010",
+                category: "cut-work",
+                description: "Exquisite cut work design with delicate patterns that create a stunning visual effect. The precision and attention to detail make this design truly exceptional.",
+                image: "https://i.postimg.cc/L6Zjx3X2/Cut-work-design.jpg",
+                badge: "Premium"
+            },
+            
+            // Net Design
+            {
+                id: 11,
+                title: "Delicate Net Design",
+                model: "BB-2024-011",
+                category: "net-design",
+                description: "Delicate net design with intricate embroidery work that creates a stunning visual effect. The combination of net fabric and detailed embroidery makes this design perfect for special occasions.",
+                image: "https://i.postimg.cc/CL2HRXZs/Net-design.jpg",
+                badge: "Bestseller"
+            },
+            
+            // Floral Design
+            {
                 id: 12,
-                title: "3D Emboss Art",
+                title: "Beautiful Floral Design",
                 model: "BB-2024-012",
-                priceRange: "₹1000 – ₹1300",
-                neck: "high-neck",
-                back: "tie-back",
-                sleeve: "full-sleeve",
-                work: "embroidery",
-                description: "Innovative 3D emboss work that creates stunning texture and depth. This contemporary design technique adds a unique dimension to traditional blouse designs.",
-                image: "https://picsum.photos/seed/3d1/600/700.jpg"
+                category: "floral-design",
+                description: "Beautiful floral design with intricate embroidery that brings nature's beauty to your attire. The detailed floral patterns add a touch of elegance and femininity to this stunning blouse.",
+                image: "https://i.postimg.cc/76bZJsJ2/Floral-design.jpg",
+                badge: "Popular"
+            },
+            {
+                id: 13,
+                title: "Elegant Floral Pattern",
+                model: "BB-2024-013",
+                category: "floral-design",
+                description: "Elegant floral design with delicate patterns that create a romantic and feminine look. The intricate embroidery work showcases the beauty of nature-inspired designs.",
+                image: "https://i.postimg.cc/nzRqPdBG/Floral-design.jpg"
+            },
+            {
+                id: 14,
+                title: "Chic Floral Design",
+                model: "BB-2024-014",
+                category: "floral-design",
+                description: "Modern floral design with contemporary patterns that blend traditional elements with modern aesthetics. Perfect for those who appreciate both tradition and style.",
+                image: "https://i.postimg.cc/YCH8gs32/Floral-design-1.jpg",
+                badge: "Trending"
+            },
+            {
+                id: 15,
+                title: "Floral Elegance",
+                model: "BB-2024-015",
+                category: "floral-design",
+                description: "Sophisticated floral design with intricate patterns that showcase exceptional craftsmanship. The delicate details and elegant styling make this a perfect choice for special occasions.",
+                image: "https://i.postimg.cc/pd5nVD9c/Floral-02.jpg",
+                badge: "New"
+            },
+            
+            // Simple Design
+            {
+                id: 16,
+                title: "Elegant Simple Design",
+                model: "BB-2024-016",
+                category: "simple-design",
+                description: "Elegant simple design with minimal embellishments that focuses on clean lines and perfect fit. This versatile design is perfect for both casual and formal occasions.",
+                image: "https://i.postimg.cc/cJx7KnMq/Simple-design.jpg"
+            },
+            {
+                id: 17,
+                title: "Minimalist Beauty",
+                model: "BB-2024-017",
+                category: "simple-design",
+                description: "Chic simple design with subtle details that create an elegant and sophisticated look. The minimalist approach highlights the beauty of simplicity and perfect tailoring.",
+                image: "https://i.postimg.cc/nM8jyNzh/Simple-design-1.jpg",
+                badge: "Popular"
+            },
+            {
+                id: 18,
+                title: "Classic Simple Design",
+                model: "BB-2024-018",
+                category: "simple-design",
+                description: "Timeless simple design with clean lines and subtle elegance. This versatile piece can be dressed up or down, making it a perfect addition to any wardrobe.",
+                image: "https://i.postimg.cc/cL0M68x1/Simple-design.jpg"
+            },
+            {
+                id: 19,
+                title: "Contemporary Simplicity",
+                model: "BB-2024-019",
+                category: "simple-design",
+                description: "Modern simple design with clean aesthetics and minimal embellishments. The contemporary style and perfect fit make this a versatile choice for various occasions.",
+                image: "https://i.postimg.cc/4ykvRWWT/Simple-design-02.jpg",
+                badge: "New"
+            },
+            
+            // Mirror Design
+            {
+                id: 20,
+                title: "Stunning Mirror Design",
+                model: "BB-2024-020",
+                category: "mirror-design",
+                description: "Stunning mirror work with traditional patterns. Reflects light beautifully and adds a sparkling element to your outfit, making you stand out in any gathering.",
+                image: "https://i.postimg.cc/wBY2XbQs/Mirror-design.jpg",
+                badge: "Bestseller"
+            },
+            
+            // Pot Neck Design
+            {
+                id: 21,
+                title: "Elegant Pot Neck Design",
+                model: "BB-2024-021",
+                category: "pot-neck-design",
+                description: "Unique pot neck design with intricate patterns that create a distinctive and elegant look. The special neck design adds a touch of sophistication to this beautiful blouse.",
+                image: "https://i.postimg.cc/GhZxRSNH/Pot-neck-design.jpg",
+                badge: "Exclusive"
+            },
+            
+            // All Over Hand Design
+            {
+                id: 22,
+                title: "Exquisite All Over Hand Design",
+                model: "BB-2024-022",
+                category: "all-over-hand-design",
+                description: "Exquisite all over hand design with detailed embroidery work that showcases exceptional craftsmanship. The intricate patterns cover the entire blouse, creating a stunning visual effect.",
+                image: "https://i.postimg.cc/vmPvJHd5/All-over-hand-design.jpg",
+                badge: "Premium"
+            },
+            
+            // All Over Design
+            {
+                id: 23,
+                title: "Beautiful All Over Design",
+                model: "BB-2024-023",
+                category: "all-over-design",
+                description: "Beautiful all over design with intricate patterns that create a cohesive and stunning look. The detailed work covers the entire blouse, making it a perfect choice for special occasions.",
+                image: "https://i.postimg.cc/KY4TgPdv/All-over-design.jpg",
+                badge: "Popular"
+            },
+            {
+                id: 24,
+                title: "Elegant All Over Pattern",
+                model: "BB-2024-024",
+                category: "all-over-design",
+                description: "Elegant all over design with detailed patterns that showcase exceptional craftsmanship. The cohesive design creates a sophisticated and luxurious look.",
+                image: "https://i.postimg.cc/SRf9FknB/All-over-01.jpg",
+                badge: "New"
+            },
+            
+            // Boat Neck Design
+            {
+                id: 25,
+                title: "Classic Boat Neck Design",
+                model: "BB-2024-025",
+                category: "boat-neck-design",
+                description: "Classic boat neck design with elegant details that create a sophisticated look. The timeless style and perfect fit make this a versatile choice for various occasions.",
+                image: "https://i.postimg.cc/7PfjHhXf/Boat-neck-design.jpg",
+                badge: "Bestseller"
+            },
+            {
+                id: 26,
+                title: "Elegant Boat Neck",
+                model: "BB-2024-026",
+                category: "boat-neck-design",
+                description: "Elegant boat neck design with subtle details that create a refined and sophisticated look. The classic style is perfect for those who appreciate timeless fashion.",
+                image: "https://i.postimg.cc/HL6PH1y2/Boat-neck-04.jpg"
+            },
+            {
+                id: 27,
+                title: "Contemporary Boat Neck",
+                model: "BB-2024-027",
+                category: "boat-neck-design",
+                description: "Modern boat neck design with contemporary elements that blend traditional style with modern aesthetics. The unique design makes it a standout piece.",
+                image: "https://i.postimg.cc/1tTCn0Mr/Boat-neck-01.jpg",
+                badge: "Trending"
+            },
+            {
+                id: 28,
+                title: "Stylish Boat Neck",
+                model: "BB-2024-028",
+                category: "boat-neck-design",
+                description: "Stylish boat neck design with elegant details that create a sophisticated and fashionable look. The perfect blend of tradition and modern style.",
+                image: "https://i.postimg.cc/WpBYsndV/Boat-neck-02.jpg"
+            },
+            {
+                id: 29,
+                title: "Chic Boat Neck",
+                model: "BB-2024-029",
+                category: "boat-neck-design",
+                description: "Chic boat neck design with modern elements that create a fashionable and elegant look. The contemporary style is perfect for fashion-forward individuals.",
+                image: "https://i.postimg.cc/x1R6yVt8/Boat-neck-03.jpg",
+                badge: "New"
+            },
+            {
+                id: 30,
+                title: "Sophisticated Boat Neck",
+                model: "BB-2024-030",
+                category: "boat-neck-design",
+                description: "Sophisticated boat neck design with elegant details that create a refined and luxurious look. The perfect choice for those who appreciate fine craftsmanship.",
+                image: "https://i.postimg.cc/gJfskzk3/Boat-neck-05.jpg"
+            },
+            
+            // Kids Design
+            {
+                id: 31,
+                title: "Cute Kids Design",
+                model: "BB-2024-031",
+                category: "kids-design",
+                description: "Cute and comfortable design specially crafted for kids with soft fabrics. These blouses are designed keeping in mind the comfort and style needs of young ones.",
+                image: "https://i.postimg.cc/L8HTs0RG/Kids-design.jpg",
+                badge: "Popular"
+            },
+            {
+                id: 32,
+                title: "Kids Special",
+                model: "BB-2024-032",
+                category: "kids-design",
+                description: "Adorable kids design with playful patterns and comfortable fit. The soft fabrics and thoughtful design ensure that little ones look cute and feel comfortable.",
+                image: "https://i.postimg.cc/ZqQFVbNj/Kids-design-01.jpg",
+                badge: "New"
+            },
+            
+            // Rangoli Design
+            {
+                id: 33,
+                title: "Artistic Rangoli Design",
+                model: "BB-2024-033",
+                category: "rangoli-design",
+                description: "Artistic rangoli design with colorful patterns that showcase traditional Indian art. The intricate designs and vibrant colors create a stunning visual effect.",
+                image: "https://i.postimg.cc/WbVm9fDN/Rangoli-design-01.jpg",
+                badge: "Exclusive"
+            },
+            {
+                id: 34,
+                title: "Traditional Rangoli Pattern",
+                model: "BB-2024-034",
+                category: "rangoli-design",
+                description: "Traditional rangoli design with intricate patterns that celebrate Indian art and culture. The detailed work and vibrant colors make this a perfect choice for festive occasions.",
+                image: "https://i.postimg.cc/T10KN0Sj/Rangoli-design.jpg",
+                badge: "Bestseller"
             }
         ];
 
-        // Current active filters
-        let activeFilters = {
-            neck: [],
-            back: [],
-            sleeve: [],
-            work: []
-        };
+        // Current active filter
+        let activeFilter = 'all';
 
         // Popup messages for collection reminder
         const collectionMessages = [
@@ -1668,8 +1627,7 @@
                 // Add new item to cart
                 cart.push({
                     ...design,
-                    quantity: 1,
-                    price: parseInt(design.priceRange.split('–')[1].replace(/[^\d]/g, '')) // Use max price
+                    quantity: 1
                 });
             }
             
@@ -1699,43 +1657,30 @@
             const grid = document.getElementById('designGrid');
             grid.innerHTML = '';
             
-            // Apply filters
+            // Apply filter
             let filteredDesigns = designs;
-            
-            // Filter by neck
-            if (activeFilters.neck.length > 0) {
-                filteredDesigns = filteredDesigns.filter(d => activeFilters.neck.includes(d.neck));
+            if (activeFilter !== 'all') {
+                filteredDesigns = designs.filter(d => d.category === activeFilter);
             }
             
-            // Filter by back
-            if (activeFilters.back.length > 0) {
-                filteredDesigns = filteredDesigns.filter(d => activeFilters.back.includes(d.back));
-            }
-            
-            // Filter by sleeve
-            if (activeFilters.sleeve.length > 0) {
-                filteredDesigns = filteredDesigns.filter(d => activeFilters.sleeve.includes(d.sleeve));
-            }
-            
-            // Filter by work
-            if (activeFilters.work.length > 0) {
-                filteredDesigns = filteredDesigns.filter(d => activeFilters.work.includes(d.work));
-            }
-            
-            // If no designs match the filters, show a message
+            // If no designs match the filter, show a message
             if (filteredDesigns.length === 0) {
                 grid.innerHTML = `
                     <div class="no-results">
                         <i class="fas fa-search"></i>
-                        <p>No designs match your filters. Try adjusting your selection.</p>
+                        <p>No designs found in this category.</p>
                     </div>
                 `;
                 return;
             }
             
-            filteredDesigns.forEach(design => {
+            // Add animation class to cards
+            filteredDesigns.forEach((design, index) => {
                 const card = document.createElement('div');
                 card.className = 'design-card';
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.9)';
+                
                 card.innerHTML = `
                     <div class="image-container">
                         <img src="${design.image}" alt="${design.title}">
@@ -1743,7 +1688,6 @@
                     </div>
                     <div class="content">
                         <h3>${design.title}</h3>
-                        <div class="price-range">${design.priceRange}</div>
                         <p class="model-number">Model: ${design.model}</p>
                         <p class="description">${design.description.substring(0, 100)}...</p>
                         <div class="actions">
@@ -1752,163 +1696,17 @@
                         </div>
                     </div>
                 `;
+                
                 grid.appendChild(card);
+                
+                // Animate card appearance with staggered delay
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'scale(1)';
+                }, index * 100);
             });
         }
-
-        // Update active filters display
-        function updateActiveFiltersDisplay() {
-            const activeFiltersContainer = document.getElementById('activeFilters');
-            const activeFilterTags = document.getElementById('activeFilterTags');
-            
-            // Check if there are any active filters
-            const hasActiveFilters = Object.values(activeFilters).some(filters => filters.length > 0);
-            
-            if (!hasActiveFilters) {
-                activeFiltersContainer.style.display = 'none';
-                return;
-            }
-            
-            activeFiltersContainer.style.display = 'block';
-            activeFilterTags.innerHTML = '';
-            
-            // Create filter tags for each active filter
-            Object.entries(activeFilters).forEach(([category, filters]) => {
-                filters.forEach(filterValue => {
-                    const tag = document.createElement('div');
-                    tag.className = 'filter-tag';
-                    
-                    // Get the label for the filter value
-                    const label = document.querySelector(`input[value="${filterValue}"] + label`).textContent;
-                    
-                    tag.innerHTML = `
-                        ${label}
-                        <i class="fas fa-times" data-category="${category}" data-value="${filterValue}"></i>
-                    `;
-                    
-                    activeFilterTags.appendChild(tag);
-                });
-            });
-            
-            // Add event listeners to remove individual filters
-            document.querySelectorAll('.filter-tag i').forEach(icon => {
-                icon.addEventListener('click', function() {
-                    const category = this.dataset.category;
-                    const value = this.dataset.value;
-                    
-                    // Remove filter from active filters
-                    activeFilters[category] = activeFilters[category].filter(f => f !== value);
-                    
-                    // Uncheck the checkbox
-                    document.querySelector(`input[value="${value}"]`).checked = false;
-                    
-                    // Update display and reload designs
-                    updateActiveFiltersDisplay();
-                    loadDesigns();
-                });
-            });
-        }
-
-        // Filter button click event
-        document.getElementById('filterButton').addEventListener('click', function() {
-            const filterPanel = document.getElementById('filterPanel');
-            filterPanel.classList.toggle('active');
-        });
-
-        // Filter close button click event
-        document.getElementById('filterClose').addEventListener('click', function() {
-            const filterPanel = document.getElementById('filterPanel');
-            filterPanel.classList.remove('active');
-        });
-
-        // Category accordion functionality
-        document.querySelectorAll('.filter-category-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const category = this.closest('.filter-category');
-                category.classList.toggle('expanded');
-            });
-        });
-
-        // Filter option selection
-        document.querySelectorAll('.filter-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const checkbox = this.querySelector('input[type="checkbox"]');
-                checkbox.checked = !checkbox.checked;
-                
-                if (checkbox.checked) {
-                    this.classList.add('selected');
-                } else {
-                    this.classList.remove('selected');
-                }
-            });
-        });
-
-        // Clear filters button
-        document.getElementById('clearFilters').addEventListener('click', function() {
-            // Uncheck all checkboxes
-            document.querySelectorAll('.filter-option input[type="checkbox"]').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            
-            // Remove selected class from all options
-            document.querySelectorAll('.filter-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Reset active filters
-            activeFilters = {
-                neck: [],
-                back: [],
-                sleeve: [],
-                work: []
-            };
-            
-            // Update display and reload designs
-            updateActiveFiltersDisplay();
-            loadDesigns();
-            
-            showToast('All filters cleared');
-        });
-
-        // Clear all active filters
-        document.getElementById('clearAll').addEventListener('click', function() {
-            document.getElementById('clearFilters').click();
-        });
-
-        // Apply filters button
-        document.getElementById('applyFilters').addEventListener('click', function() {
-            // Reset active filters
-            activeFilters = {
-                neck: [],
-                back: [],
-                sleeve: [],
-                work: []
-            };
-            
-            // Collect all checked filters
-            document.querySelectorAll('.filter-option input:checked').forEach(checkbox => {
-                const value = checkbox.value;
-                
-                // Determine the category based on the input's parent category
-                const category = checkbox.closest('.filter-category').dataset.category;
-                
-                if (activeFilters[category]) {
-                    activeFilters[category].push(value);
-                }
-            });
-            
-            // Reload designs with new filters
-            loadDesigns();
-            
-            // Update active filters display
-            updateActiveFiltersDisplay();
-            
-            // Close filter panel
-            document.getElementById('filterPanel').classList.remove('active');
-            
-            // Show toast notification
-            showToast('Filters applied successfully!');
-        });
 
         // View design details in modal
         function viewDetails(designId) {
@@ -1919,7 +1717,6 @@
                 document.getElementById('modalImage').src = currentDesign.image;
                 document.getElementById('modalTitle').textContent = currentDesign.title;
                 document.getElementById('modalModel').textContent = 'Model: ' + currentDesign.model;
-                document.getElementById('modalPrice').textContent = currentDesign.priceRange;
                 document.getElementById('modalDescription').textContent = currentDesign.description;
                 
                 // Show badge if exists
@@ -2019,13 +1816,61 @@
             window.open('https://www.youtube.com/@BhagyaBlouses', '_blank');
         }
 
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random size between 5px and 15px
+                const size = Math.random() * 10 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            // Create floating particles
+            createParticles();
+            
             // Load designs
             loadDesigns();
             
             // Update cart counter
             updateCartCounter();
+            
+            // Setup filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update active filter
+                    activeFilter = this.dataset.category;
+                    
+                    // Reload designs
+                    loadDesigns();
+                });
+            });
             
             // Setup modal event listeners
             document.getElementById('modalClose').addEventListener('click', closeModal);
@@ -2044,16 +1889,6 @@
             document.getElementById('productModal').addEventListener('click', function(e) {
                 if (e.target === this) {
                     closeModal();
-                }
-            });
-            
-            // Close filter panel when clicking outside
-            document.addEventListener('click', function(e) {
-                const filterPanel = document.getElementById('filterPanel');
-                const filterButton = document.getElementById('filterButton');
-                
-                if (!filterPanel.contains(e.target) && e.target !== filterButton && !filterButton.contains(e.target)) {
-                    filterPanel.classList.remove('active');
                 }
             });
             
