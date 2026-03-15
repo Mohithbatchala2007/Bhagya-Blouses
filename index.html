@@ -214,7 +214,14 @@
             justify-content: center;
             position: relative;
             padding: 100px 20px 80px;
-            background: linear-gradient(135deg, rgba(255, 238, 245, 0.9), rgba(255, 248, 243, 0.9)), url('https://picsum.photos/seed/blouse/1920/1080.jpg');
+
+            background:
+            linear-gradient(
+                rgba(0,0,0,0.35),
+                rgba(0,0,0,0.35)
+            ),
+            url('https://i.postimg.cc/9FyNZy9x/herosection.png');
+
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -397,17 +404,6 @@
             color: #999;
             font-size: 14px;
             margin-bottom: 15px;
-        }
-
-        .design-card .price-range {
-            color: var(--gold);
-            font-weight: 600;
-            font-size: 18px;
-            margin-bottom: 15px;
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 6px 12px;
-            border-radius: 20px;
         }
 
         .design-card .description {
@@ -653,17 +649,6 @@
             margin-bottom: 20px;
         }
 
-        .modal-info .price {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 20px;
-            display: inline-block;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 8px 15px;
-            border-radius: 15px;
-        }
-
         .modal-info .description {
             color: var(--text-light);
             line-height: 1.8;
@@ -704,6 +689,143 @@
             opacity: 1;
         }
 
+        /* Mobile Desktop Mode Popup */
+        .mobile-desktop-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 5000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-desktop-popup.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .mobile-desktop-popup-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 350px;
+            width: 100%;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-desktop-popup.active .mobile-desktop-popup-content {
+            transform: scale(1);
+        }
+
+        .mobile-desktop-popup-icon {
+            font-size: 50px;
+            color: var(--secondary-pink);
+            margin-bottom: 15px;
+        }
+
+        .mobile-desktop-popup h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .mobile-desktop-popup p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .mobile-desktop-steps {
+            background: var(--light-pink);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .mobile-desktop-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+
+        .mobile-desktop-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .mobile-desktop-step-icon {
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .mobile-desktop-step-icon i {
+            font-size: 14px;
+            color: var(--secondary-pink);
+        }
+
+        .mobile-desktop-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mobile-desktop-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-desktop-btn-primary {
+            background: linear-gradient(135deg, var(--secondary-pink), var(--primary-pink));
+            color: white;
+        }
+
+        .mobile-desktop-btn-secondary {
+            background: #f0f0f0;
+            color: var(--text-dark);
+        }
+
+        .mobile-desktop-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-desktop-dont-show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .mobile-desktop-dont-show input {
+            margin-right: 5px;
+        }
+
         /* Responsive Design */
         @media (min-width: 1025px) {
             .desktop-nav {
@@ -717,6 +839,9 @@
             }
             .hero {
                 padding-top: 75px;
+            }
+            .mobile-desktop-popup {
+                display: none !important;
             }
         }
 
@@ -756,6 +881,12 @@
             .footer-right {
                 align-items: center;
                 margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .mobile-desktop-popup {
+                display: flex;
             }
         }
     </style>
@@ -898,7 +1029,6 @@
                 <div class="modal-info">
                     <h2 id="modalTitle"></h2>
                     <p class="model-number" id="modalModel"></p>
-                    <div class="price" id="modalPrice"></div>
                     <p class="description" id="modalDescription"></p>
                     <div class="modal-actions">
                         <button class="btn btn-primary" id="modalAddToCart">Add to Cart</button>
@@ -912,8 +1042,50 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast"></div>
 
+    <!-- Mobile Desktop Mode Popup -->
+    <div class="mobile-desktop-popup" id="mobileDesktopPopup">
+        <div class="mobile-desktop-popup-content">
+            <div class="mobile-desktop-popup-icon">
+                <i class="fas fa-desktop"></i>
+            </div>
+            <h3>For Best Experience</h3>
+            <p>This website is optimized for desktop viewing. Enable desktop mode for the best experience.</p>
+            
+            <div class="mobile-desktop-steps">
+                <div class="mobile-desktop-step">
+                    <div class="mobile-desktop-step-icon">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                    <div>Tap the menu icon (3 dots) in your browser</div>
+                </div>
+                <div class="mobile-desktop-step">
+                    <div class="mobile-desktop-step-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div>Select "Desktop site" or "Request desktop site"</div>
+                </div>
+                <div class="mobile-desktop-step">
+                    <div class="mobile-desktop-step-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <div>Refresh the page to apply changes</div>
+                </div>
+            </div>
+            
+            <div class="mobile-desktop-buttons">
+                <button class="mobile-desktop-btn mobile-desktop-btn-primary" id="enableDesktopMode">Enable Desktop Mode</button>
+                <button class="mobile-desktop-btn mobile-desktop-btn-secondary" id="continueMobile">Continue Anyway</button>
+            </div>
+            
+            <div class="mobile-desktop-dont-show">
+                <input type="checkbox" id="dontShowAgain">
+                <label for="dontShowAgain">Don't show again</label>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Sample design data
+        // Sample design data with updated image URLs
         const designs = [
             {
                 id: 1,
@@ -922,7 +1094,7 @@
                 priceRange: "₹1200-1500",
                 price: 1500,
                 description: "Exquisite bridal blouse with intricate gold embroidery and traditional patterns. Perfect for your special day, this blouse features detailed handwork with premium threads and stones that enhance its beauty.",
-                image: "https://picsum.photos/seed/bridal1/600/700.jpg",
+                image: "https://i.postimg.cc/4xNk3K9L/Bridal-1.jpg",
                 badge: "New"
             },
             {
@@ -932,7 +1104,7 @@
                 priceRange: "₹800-1000",
                 price: 1000,
                 description: "Beautiful peacock motif with vibrant colors and detailed embroidery work. The intricate peacock design symbolizes beauty and grace, making it a perfect choice for festive occasions.",
-                image: "https://picsum.photos/seed/peacock1/600/700.jpg",
+                image: "https://i.postimg.cc/ZYgTx1CK/Bridal.jpg",
                 badge: "Trending"
             },
             {
@@ -942,16 +1114,16 @@
                 priceRange: "₹600-800",
                 price: 800,
                 description: "Delicate floral patterns with soft pastel shades and minimal embroidery. This design brings out the feminine charm with its subtle yet elegant floral motifs.",
-                image: "https://picsum.photos/seed/floral1/600/700.jpg"
+                image: "https://i.postimg.cc/fyZqgF7j/Bridal-2.jpg"
             },
             {
                 id: 4,
-                title: "Traditional Kutch Work",
+                title: "Traditional Cut Work",
                 model: "BB-2024-004",
                 priceRange: "₹1000-1200",
                 price: 1200,
-                description: "Authentic Kutch work with vibrant threads and mirror embellishments. This traditional Gujarati art form adds a colorful and vibrant touch to your ethnic attire.",
-                image: "https://picsum.photos/seed/kutch1/600/700.jpg",
+                description: "Authentic cut work with vibrant threads and mirror embellishments. This traditional art form adds a colorful and vibrant touch to your ethnic attire.",
+                image: "https://i.postimg.cc/YSWX2kbv/Cut-work.jpg",
                 badge: "Exclusive"
             },
             {
@@ -961,7 +1133,7 @@
                 priceRange: "₹500-700",
                 price: 700,
                 description: "Contemporary boat neck design with subtle embroidery and clean lines. This modern design is perfect for those who prefer a minimalist yet elegant look.",
-                image: "https://picsum.photos/seed/boat1/600/700.jpg"
+                image: "https://i.postimg.cc/prqCcdLr/Cut-work-1.jpg"
             },
             {
                 id: 6,
@@ -970,7 +1142,7 @@
                 priceRange: "₹900-1100",
                 price: 1100,
                 description: "Traditional mango motif with golden thread work and stone embellishments. The mango design is a symbol of prosperity and is a timeless classic in Indian ethnic wear.",
-                image: "https://picsum.photos/seed/mango1/600/700.jpg",
+                image: "https://i.postimg.cc/289T43th/Cut-work-2.jpg",
                 badge: "Bestseller"
             },
             {
@@ -980,7 +1152,7 @@
                 priceRange: "₹700-900",
                 price: 900,
                 description: "Sophisticated V-neck design with delicate lacework and subtle bead embellishments. This design adds a touch of elegance and sophistication to any saree.",
-                image: "https://picsum.photos/seed/vneck1/600/700.jpg"
+                image: "https://i.postimg.cc/CL2HRXZs/Net-design.jpg"
             },
             {
                 id: 8,
@@ -989,7 +1161,7 @@
                 priceRange: "₹600-800",
                 price: 800,
                 description: "Delicate butterfly patterns with colorful embroidery. Perfect for spring occasions, this design symbolizes transformation and beauty with its intricate butterfly motifs.",
-                image: "https://picsum.photos/seed/butterfly1/600/700.jpg"
+                image: "https://i.postimg.cc/76bZJsJ2/Floral-design.jpg"
             },
             {
                 id: 9,
@@ -998,7 +1170,7 @@
                 priceRange: "₹800-1000",
                 price: 1000,
                 description: "Elegant lotus motifs with pearl embellishments. Symbolizes purity and beauty, the lotus design adds a divine touch to your traditional attire.",
-                image: "https://picsum.photos/seed/lotus1/600/700.jpg"
+                image: "https://i.postimg.cc/cJx7KnMq/Simple-design.jpg"
             },
             {
                 id: 10,
@@ -1007,7 +1179,7 @@
                 priceRange: "₹900-1100",
                 price: 1100,
                 description: "Stunning mirror work with traditional patterns. Reflects light beautifully and adds a sparkling element to your outfit, making you stand out in any gathering.",
-                image: "https://picsum.photos/seed/mirror1/600/700.jpg",
+                image: "https://i.postimg.cc/wBY2XbQs/Mirror-design.jpg",
                 badge: "Popular"
             },
             {
@@ -1017,7 +1189,7 @@
                 priceRange: "₹400-600",
                 price: 600,
                 description: "Cute and comfortable designs specially crafted for kids with soft fabrics. These blouses are designed keeping in mind the comfort and style needs of young ones.",
-                image: "https://picsum.photos/seed/kids1/600/700.jpg"
+                image: "https://i.postimg.cc/GhZxRSNH/Pot-neck-design.jpg"
             },
             {
                 id: 12,
@@ -1026,7 +1198,7 @@
                 priceRange: "₹1000-1300",
                 price: 1300,
                 description: "Innovative 3D emboss work that creates stunning texture and depth. This contemporary design technique adds a unique dimension to traditional blouse designs.",
-                image: "https://picsum.photos/seed/3d1/600/700.jpg"
+                image: "https://i.postimg.cc/nzRqPdBG/Floral-design.jpg"
             }
         ];
 
@@ -1102,7 +1274,6 @@
                     </div>
                     <div class="content">
                         <h3>${design.title}</h3>
-                        <div class="price-range">${design.priceRange}</div>
                         <p class="model-number">Model: ${design.model}</p>
                         <p class="description">${design.description.substring(0, 100)}...</p>
                         <div class="actions">
@@ -1125,7 +1296,6 @@
                 document.getElementById('modalImage').src = currentDesign.image;
                 document.getElementById('modalTitle').textContent = currentDesign.title;
                 document.getElementById('modalModel').textContent = 'Model: ' + currentDesign.model;
-                document.getElementById('modalPrice').textContent = currentDesign.priceRange;
                 document.getElementById('modalDescription').textContent = currentDesign.description;
                 
                 // Show badge if exists
@@ -1166,6 +1336,23 @@
             }
         }
 
+        // Mobile desktop mode popup functionality
+        function checkMobileDesktopPopup() {
+            // Check if screen width is 320px or less
+            if (window.innerWidth <= 320) {
+                // Check if user has previously chosen not to show the popup
+                const dontShowAgain = localStorage.getItem('dontShowDesktopPopup');
+                
+                if (!dontShowAgain) {
+                    // Show popup with animation
+                    setTimeout(() => {
+                        const popup = document.getElementById('mobileDesktopPopup');
+                        popup.classList.add('active');
+                    }, 1000);
+                }
+            }
+        }
+
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             // Load designs
@@ -1196,6 +1383,40 @@
                     closeModal();
                 }
             });
+            
+            // Mobile desktop mode popup event listeners
+            document.getElementById('enableDesktopMode').addEventListener('click', function() {
+                // Try to trigger desktop mode
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.setAttribute('content', 'width=1200');
+                    showToast('Please refresh the page to apply desktop mode');
+                } else {
+                    showToast('Desktop mode may not be supported on your browser');
+                }
+                
+                // Close popup
+                document.getElementById('mobileDesktopPopup').classList.remove('active');
+            });
+            
+            document.getElementById('continueMobile').addEventListener('click', function() {
+                // Close popup
+                document.getElementById('mobileDesktopPopup').classList.remove('active');
+            });
+            
+            document.getElementById('dontShowAgain').addEventListener('change', function() {
+                if (this.checked) {
+                    localStorage.setItem('dontShowDesktopPopup', 'true');
+                } else {
+                    localStorage.removeItem('dontShowDesktopPopup');
+                }
+            });
+            
+            // Check if we should show the mobile desktop mode popup
+            checkMobileDesktopPopup();
+            
+            // Also check on window resize
+            window.addEventListener('resize', checkMobileDesktopPopup);
         });
     </script>
 </body>
